@@ -110,10 +110,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
 
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    hostapd \
+    dhcpcd.conf \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
 # Charger
 PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
+    charger_res_images
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
@@ -218,7 +224,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.add_power_save=1 \
     ro.telephony.call_ring.multiple=0 \
     ro.telephony.ril_class=LgeLteRIL \
-    ro.telephony.ril.v3=qcomdsds
+    ro.telephony.ril.config=qcomdsds
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=480 \
