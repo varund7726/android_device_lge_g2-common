@@ -87,6 +87,9 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
         device/lge/g2-common/sepolicy
 
+# QCOM PowerHAL
+TARGET_POWERHAL_VARIANT := qcom
+
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 COMMON_GLOBAL_CFLAGS += -DLG_CAMERA_HARDWARE -DLPA_DEFAULT_BUFFER_SIZE=512
