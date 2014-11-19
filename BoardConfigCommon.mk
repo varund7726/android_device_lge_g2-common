@@ -125,6 +125,9 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/lge/g2-common/releasetools
 # Logging
 TARGET_USES_LOGD := false
 
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
+
 # Device headers
 TARGET_SPECIFIC_HEADER_PATH := device/lge/g2-common/include
 
