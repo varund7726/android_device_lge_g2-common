@@ -80,42 +80,12 @@ WIFI_DRIVER_FW_PATH_AP      := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
 TARGET_NO_RPC := true
 TARGET_PROVIDES_GPS_LOC_API := true
 
-# SELinux
+# SELinux policies
+# qcom sepolicy
+include device/qcom/sepolicy/sepolicy.mk
+
 BOARD_SEPOLICY_DIRS += \
         device/lge/g2-common/sepolicy
-
-# The list below is order dependent
-BOARD_SEPOLICY_UNION += \
-        app.te \
-        bluetooth_loader.te \
-        bridge.te \
-        camera.te \
-        device.te \
-        domain.te \
-        file.te \
-        hostapd.te \
-        irsc_util.te \
-        mediaserver.te \
-        mpdecision.te \
-        netmgrd.te \
-        platform_app.te \
-        qmux.te \
-        radio.te \
-        rild.te \
-        rmt.te \
-        sensors.te \
-        ssr.te \
-        surfaceflinger.te \
-        system_server.te \
-        tee.te \
-        thermald.te \
-        time.te \
-        ueventd.te \
-        vss.te \
-        wpa.te \
-        file_contexts \
-        genfs_contexts \
-        te_macros
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
