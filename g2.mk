@@ -143,9 +143,50 @@ PRODUCT_PACKAGES += \
     Tag \
     com.android.nfc_extras
 
-# Camera
-PRODUCT_PACKAGES += \
-    camera.g2
+# NFCEE access control
+ifeq ($(TARGET_BUILD_VARIANT),user)
+    NFCEE_ACCESS_PATH := $(LOCAL_PATH)/nfc/nfcee_access.xml
+else
+    NFCEE_ACCESS_PATH := $(LOCAL_PATH)/nfc/nfcee_access_debug.xml
+endif
+
+# NFC access control + feature files + configuration
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+    $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml \
+    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
+
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.sf.lcd_density=480 \
+	ro.opengles.version=196608 \
+	ro.loki_enabled=1
+
+# Audio Configuration
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.audio.fluence.voicecall=true \
+	persist.audio.dualmic.config=endfire \
+	audio.offload.buffer.size.kb=32 \
+	audio.offload.gapless.enabled=false \
+	av.offload.enable=true
+
+# Do not power down SIM card when modem is sent to Low Power Mode.
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.radio.apm_sim_not_pwdn=1
+
+# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.telephony.call_ring.multiple=0
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.telephony.ril_class=LgeLteRIL \
+	ro.telephony.ril.config=qcomdsds
+
+#Upto 3 layers can go through overlays
+PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable=true
+
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
@@ -220,7 +261,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.mode=endfire \
     persist.audio.handset.mic=digital \
-    af.resampler.quality=4 \
     audio.offload.min.duration.secs=30 \
     audio.offload.buffer.size.kb=32 \
     av.offload.enable=true \
