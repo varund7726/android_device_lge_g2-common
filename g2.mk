@@ -213,6 +213,7 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     libaudio-resampler \
     libqcomvisualizer \
+    libqcompostprocbundle \
     libqcomvoiceprocessing \
     libqcomvoiceprocessingdescriptors
 
