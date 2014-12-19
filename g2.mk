@@ -113,6 +113,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# Build XML parser since we no longer use a prebuilt
+PRODUCT_PACKAGES += \
+    libxml2
+
 # Live Wallpapers
 PRODUCT_PACKAGES += \
     LiveWallpapers \
