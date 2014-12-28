@@ -132,7 +132,6 @@ PRODUCT_PACKAGES += \
     e2fsck
 
 PRODUCT_PACKAGES += \
-    libgenlock \
     liboverlay \
     hwcomposer.msm8974 \
     gralloc.msm8974 \
@@ -149,16 +148,29 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
-    libaudio-resampler
+    libaudio-resampler \
+    libqcomvisualizer \
+    libqcompostprocbundle \
+    libqcomvoiceprocessing
 
 PRODUCT_PACKAGES += \
-    libmm-omxcore \
+    libc2dcolorconvert \
     libdivxdrmdecrypt \
+    libdashplayer \
+    libmm-omxcore \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
     libOmxVdec \
+    libOmxVdecHevc \
     libOmxVenc \
     libOmxCore \
     libstagefrighthw \
-    libc2dcolorconvert
+    qcmediaplayer
+
+PRODUCT_BOOT_JARS += qcmediaplayer
 
 PRODUCT_PACKAGES += \
     libloc_adapter \
@@ -182,13 +194,8 @@ PRODUCT_PACKAGES += \
     loki_tool_static_g2 \
     recovery-transform.sh
 
-# Audio effects
-PRODUCT_PACKAGES += \
-        libqcomvisualizer \
-        libqcompostprocbundle
-
 PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 

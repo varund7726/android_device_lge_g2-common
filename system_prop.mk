@@ -9,15 +9,24 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio Configuration
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.fluencetype=fluence \
     persist.audio.fluence.voicecall=true \
-    persist.audio.dualmic.config=endfire \
+    persist.audio.fluence.mode=endfire \
+    persist.audio.handset.mic=digital \
+    audio.offload.min.duration.secs=30 \
     audio.offload.buffer.size.kb=32 \
-    audio.offload.gapless.enabled=false \
-    av.offload.enable=true
+    av.offload.enable=true \
+    av.streaming.offload.enable=true \
+    audio.offload.pcm.enable=true \
+    audio.offload.24bit.enable=1
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1
+
+# Enable modem Low Power Mode.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.add_power_save=1
 
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -25,11 +34,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=LgeLteRIL \
-    ro.telephony.ril.config=qcomdsds
+    ro.telephony.ril.v3=qcomdsds
 
 # Up to 3 layers can go through overlays
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
+
+# Enable smooth streaming
+PRODUCT_PROPERTY_OVERRIDES += \
+    mm.enable.smoothstreaming=true
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     rild.libpath=/vendor/lib/libril-qc-qmi-1.so
@@ -57,12 +70,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.sensors.pedometer=true \
     ro.qualcomm.sensors.pam=true \
     ro.qualcomm.sensors.scrn_ortn=true \
-    debug.qualcomm.sns.hal=i \
-    debug.qualcomm.sns.daemon=i \
+    debug.qualcomm.sns.hal=w \
+    debug.qualcomm.sns.daemon=w \
     debug.qualcomm.sns.libsensor1=e
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
+
+# Input resampling configuration
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.input.noresample=1
 
 # QCOM Perf lib
 PRODUCT_PROPERTY_OVERRIDES += \
