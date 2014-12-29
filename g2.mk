@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# Call common vendor
+$(call inherit-product-if-exists, vendor/lge/g3-common/g3-common-vendor.mk)
+
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Overlays
