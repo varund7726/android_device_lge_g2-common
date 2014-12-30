@@ -151,7 +151,8 @@ PRODUCT_PACKAGES += \
     libaudio-resampler \
     libqcomvisualizer \
     libqcompostprocbundle \
-    libqcomvoiceprocessing
+    libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors
 
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
