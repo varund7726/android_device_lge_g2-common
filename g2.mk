@@ -15,7 +15,7 @@
 #
 
 # Call common vendor
-$(call inherit-product-if-exists, vendor/lge/g3-common/g3-common-vendor.mk)
+$(call inherit-product-if-exists, vendor/lge/g2-common/g2-common-vendor.mk)
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
