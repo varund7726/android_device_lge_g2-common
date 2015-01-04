@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 # Call common vendor
 $(call inherit-product-if-exists, vendor/lge/g2-common/g2-common-vendor.mk)
 
@@ -200,9 +202,9 @@ PRODUCT_PACKAGES += \
     audio.primary.msm8974 \
     audio.a2dp.default \
     audio.usb.default \
-    audio.r_submix.default
+    audio.r_submix.default \
+    audio.usb.default
 #    audiod \
-#    audio.usb.default \
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -228,7 +230,8 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
     qcmediaplayer
 
-PRODUCT_BOOT_JARS += qcmediaplayer
+PRODUCT_BOOT_JARS += \
+    qcmediaplayer
 
 # GPS
 PRODUCT_PACKAGES += \
