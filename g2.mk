@@ -206,8 +206,8 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
-    audio.usb.default
-#    audiod \
+    audio.usb.default \
+    audiod
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -249,6 +249,11 @@ PRODUCT_PACKAGES += \
     loki.sh \
     loki_tool_static_g2 \
     recovery-transform.sh
+
+# Manually copy loki scripts for now (testing)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/releasetools/loki.sh:system/bin/loki.sh \
+    $(LOCAL_PATH)/releasetools/loki-recovery.sh:system/bin/recovery-transform.sh
 
 # Lights
 PRODUCT_PACKAGES += \
