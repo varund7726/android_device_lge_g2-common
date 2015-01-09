@@ -51,6 +51,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/audio_effects.conf:system/etc/audio_effects.conf
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
@@ -164,6 +165,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.g2
 
+# Audio
 PRODUCT_PACKAGES += \
     audio_policy.default \
     audio.primary.msm8974 \
@@ -171,6 +173,13 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler
+
+# Audio effects
+PRODUCT_PACKAGES += \
+    libqcomvisualizer \
+    libqcompostprocbundle \
+    libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors
 
 PRODUCT_PACKAGES += \
     libmm-omxcore \
@@ -202,16 +211,6 @@ PRODUCT_PACKAGES += \
     loki.sh \
     loki_tool_static_g2 \
     recovery-transform.sh
-
-# Audio effects
-PRODUCT_PACKAGES += \
-        libqcomvisualizer \
-        libqcompostprocbundle \
-        libqcomvoiceprocessing \
-        libqcomvoiceprocessingdescriptors
-
-PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
