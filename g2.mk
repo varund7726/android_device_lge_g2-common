@@ -14,10 +14,13 @@
 # limitations under the License.
 #
 
+# Build full language configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Call common vendor
 $(call inherit-product-if-exists, vendor/lge/g2-common/g2-common-vendor.mk)
+
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
@@ -25,13 +28,11 @@ DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 # System properties
 -include $(LOCAL_PATH)/system_prop.mk
 
-# This device is xhdpi.  However the platform doesn't
-# currently contain all of the bitmaps at xhdpi density so
-# we do this little trick to fall back to the hdpi version
-# if the xhdpi doesn't exist.
+# Device uses high-density artwork where available 
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
+# Init
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.g2.usb.rc:root/init.g2.usb.rc \
     $(LOCAL_PATH)/ueventd.g2.rc:root/ueventd.g2.rc
@@ -49,6 +50,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf \
     $(LOCAL_PATH)/configs/sensor_def_common.conf:system/etc/sensor_def_common.conf
 
+# Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/audio_effects.conf:system/etc/audio_effects.conf
@@ -68,10 +70,15 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermald.conf-8974:system/etc/thermald-8974.conf \
     $(LOCAL_PATH)/configs/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
 
+# Touchscreen
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/touch_dev.idc:system/usr/idc/touch_dev.idc
 
-# These are the hardware-specific features
+# Wi-Fi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+
+# Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
@@ -106,6 +113,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/DxHDCP.cfg:system/etc/DxHDCP.cfg
 
+# WPA Supplicant
 PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
@@ -113,15 +121,25 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Charger
 PRODUCT_PACKAGES += \
     charger_res_images
+
+# Build XML parser since we no longer use a prebuilt
+PRODUCT_PACKAGES += \
+    libxml2
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
     LiveWallpapers \
     LiveWallpapersPicker \
+    MagicSmokeWallpapers \
     VisualizationWallpapers \
     librs_jni
+
+# Publish that we support the live wallpaper feature.
+PRODUCT_COPY_FILES := \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
 # NFC packages
 PRODUCT_PACKAGES += \
@@ -143,18 +161,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
 
-PRODUCT_TAGS += dalvik.gc.type-precise
-
+# USB
 PRODUCT_PACKAGES += \
-    librs_jni \
     com.android.future.usb.accessory
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     e2fsck
 
+# Display
 PRODUCT_PACKAGES += \
-    libgenlock \
     liboverlay \
     hwcomposer.msm8974 \
     gralloc.msm8974 \
@@ -181,15 +197,27 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcomvoiceprocessingdescriptors
 
-PRODUCT_PACKAGES += \
-    libmm-omxcore \
+# Media
+ PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
     libdivxdrmdecrypt \
+    libdashplayer \
+    libmm-omxcore \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
     libOmxVdec \
+    libOmxVdecHevc \
     libOmxVenc \
     libOmxCore \
     libstagefrighthw \
-    libc2dcolorconvert
+    qcmediaplayer
 
+PRODUCT_BOOT_JARS += qcmediaplayer
+
+# GPS
 PRODUCT_PACKAGES += \
     libloc_adapter \
     libloc_eng \
@@ -197,14 +225,16 @@ PRODUCT_PACKAGES += \
     libgps.utils \
     gps.g2
 
+# Wi-Fi
+PRODUCT_PACKAGES += \
+    libnetcmdiface
+
 PRODUCT_PACKAGES += \
     hwaddrs
 
+# Lights
 PRODUCT_PACKAGES += \
     lights.g2
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 # This hw ships locked, work around it with loki
 PRODUCT_PACKAGES += \
