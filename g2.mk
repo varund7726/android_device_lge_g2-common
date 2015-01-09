@@ -99,6 +99,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/configs/izat.conf:system/etc/izat.conf
 
+# DxHDCP
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/DxHDCP.cfg:system/etc/DxHDCP.cfg
+
 PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
