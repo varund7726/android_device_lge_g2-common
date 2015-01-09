@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 # Call common vendor
 $(call inherit-product-if-exists, vendor/lge/g2-common/g2-common-vendor.mk)
 
