@@ -60,9 +60,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
+# Thermal
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermald.conf:system/etc/thermald.conf \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+    $(LOCAL_PATH)/configs/thermald.conf-8974:system/etc/thermald-8974.conf \
+    $(LOCAL_PATH)/configs/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/touch_dev.idc:system/usr/idc/touch_dev.idc
