@@ -2,23 +2,36 @@
 # System Properties for G2
 #
 
+# Display
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=480 \
-    ro.opengles.version=196608 \
+    ro.opengles.version=196608
+
+# Loki
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.loki_enabled=1
 
-# Audio configuration
+# Fluence audio
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluence \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.mode=endfire \
     persist.audio.handset.mic=digital \
-    audio.offload.min.duration.secs=30 \
-    audio.offload.buffer.size.kb=32 \
-    av.offload.enable=true \
-    av.streaming.offload.enable=true \
-    audio.offload.pcm.enable=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true   
+
+# Audio offloading
+PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.24bit.enable=1
+    audio.offload.buffer.size.kb=32 \
+    audio.offload.gapless.enabled=false \
+    audio.offload.multiple.enabled=false \
+    audio.offload.min.duration.secs=30 \
+    audio.offload.pcm.enable=true
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    av.offload.enable=true \
+    av.streaming.offload.enable=true
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -40,9 +53,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true
-
-PRODUCT_PACKAGES += \
-    hwaddrs
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     rild.libpath=/vendor/lib/libril-qc-qmi-1.so
