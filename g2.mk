@@ -143,22 +143,33 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.g2
 
+# Audio
 PRODUCT_PACKAGES += \
-    audio_policy.default \
+    audio_policy.msm8974 \
     audio.primary.msm8974 \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler
 
+# Media
 PRODUCT_PACKAGES += \
-    libmm-omxcore \
+    libc2dcolorconvert \
     libdivxdrmdecrypt \
-    libOmxVdec \
-    libOmxVenc \
+    libdashplayer \
+    libmm-omxcore \
+    libOmxAacEnc \
+    libOmxAmrEnc \
     libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libOmxVdec \
+    libOmxVdecHevc \
+    libOmxVenc \
     libstagefrighthw \
-    libc2dcolorconvert
+    qcmediaplayer
+
+PRODUCT_BOOT_JARS += qcmediaplayer
 
 PRODUCT_PACKAGES += \
     libloc_adapter \
