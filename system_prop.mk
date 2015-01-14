@@ -18,7 +18,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.mode=endfire \
     persist.audio.handset.mic=digital \
     persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=true   
+    persist.audio.fluence.speaker=false
 
 # Offloading
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -29,7 +29,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.min.duration.secs=30 \
     audio.offload.pcm.16bit.enable=true \
     audio.offload.pcm.24bit.enable=true \
-    av.offload.enable=true \
+    av.offload.enable=false \
     av.streaming.offload.enable=true
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
@@ -77,12 +77,27 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.sensors.qmd=true \
     ro.qc.sdk.sensors.gestures=true \
+    ro.qc.sdk.gestures.camera=false \
+    ro.qc.sdk.camera.facialproc=false \
     ro.qualcomm.sensors.pedometer=true \
     ro.qualcomm.sensors.pam=true \
-    ro.qualcomm.sensors.scrn_ortn=true \
-    debug.qualcomm.sns.hal=w \
-    debug.qualcomm.sns.daemon=w \
-    debug.qualcomm.sns.libsensor1=e
+    ro.qualcomm.sensors.scrn_ortn=true
+
+# Sensor debugging
+# Valid settings (and presumably what they mean):
+#   0      - off
+#   1      - all the things
+#   V or v - verbose
+#   D or d - debug
+#   E or e - errors
+#   W or w - warnings
+#   I or i - info
+#
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.debug.sensors.hal=v \
+    debug.qualcomm.sns.hal=v \
+    debug.qualcomm.sns.daemon=v \
+    debug.qualcomm.sns.libsensor1=v
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
