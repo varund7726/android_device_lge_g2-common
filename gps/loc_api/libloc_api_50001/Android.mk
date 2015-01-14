@@ -93,7 +93,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := gps.g2
+LOCAL_MODULE := gps.$(TARGET_BOARD_PLATFORM)
 
 LOCAL_MODULE_TAGS := optional
 

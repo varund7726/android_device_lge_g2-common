@@ -20,16 +20,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=true   
 
-# Audio offloading
+# Offloading
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.24bit.enable=1
     audio.offload.buffer.size.kb=32 \
     audio.offload.gapless.enabled=false \
     audio.offload.multiple.enabled=false \
     audio.offload.min.duration.secs=30 \
-    audio.offload.pcm.enable=true
-
-PRODUCT_PROPERTY_OVERRIDES += \
+    audio.offload.pcm.16bit.enable=true \
+    audio.offload.pcm.24bit.enable=true \
     av.offload.enable=true \
     av.streaming.offload.enable=true
 

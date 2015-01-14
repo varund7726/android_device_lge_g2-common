@@ -27,7 +27,10 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
 
 TARGET_BOOTLOADER_BOARD_NAME := galbi
+
+# Platform
 TARGET_BOARD_PLATFORM := msm8974
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno330
 
 # Kernel information
 BOARD_KERNEL_BASE     := 0x00000000
@@ -85,8 +88,12 @@ TARGET_POWERHAL_VARIANT := qcom
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
+COMMON_GLOBAL_CFLAGS += -DLG_CAMERA_HARDWARE
+#COMMON_GLOBAL_CFLAGS += -DLPA_DEFAULT_BUFFER_SIZE=512
+
+# Flags
 TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
-#COMMON_GLOBAL_CFLAGS += -DLG_CAMERA_HARDWARE -DLPA_DEFAULT_BUFFER_SIZE=512
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 RECOVERY_FSTAB_VERSION = 2
 TARGET_RECOVERY_FSTAB = device/lge/g2-common/fstab.g2
@@ -105,21 +112,26 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 734003200 #700M
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
-# Fonts
+# Enable Minikin text layout engine (will be the default soon)
+USE_MINIKIN := true
+
+# Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
 # GPS
 TARGET_NO_RPC := true
 
-# Charger
+# Offmode Charging
 BOARD_CHARGER_ENABLE_SUSPEND := true
-COMMON_GLOBAL_CFLAGS += -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' -DBOARD_CHARGING_CMDLINE_VALUE='"chargerlogo"'
+COMMON_GLOBAL_CFLAGS += \
+    -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' \
+    -DBOARD_CHARGING_CMDLINE_VALUE='"chargerlogo"'
 
 # CM Hardware
 BOARD_HARDWARE_CLASS := device/lge/g2-common/cmhw/
 
 # SELinux policies
-# qcom sepolicy
+# QCOM sepolicy
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
@@ -137,4 +149,4 @@ TARGET_USES_LOGD := false
 # Device headers
 TARGET_SPECIFIC_HEADER_PATH := device/lge/g2-common/include
 
-BOARD_USES_LEGACY_MMAP := true
+#BOARD_USES_LEGACY_MMAP := true

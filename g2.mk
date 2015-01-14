@@ -30,19 +30,6 @@ DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-# Init
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.g2.usb.rc:root/init.g2.usb.rc \
-    $(LOCAL_PATH)/ueventd.g2.rc:root/ueventd.g2.rc
-
-# F320 requires different versions of these for SD card access
-# so use these only if we're NOT building F320
-ifneq ($(TARGET_DEVICE),f320)
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.g2.rc:root/init.g2.rc \
-    $(LOCAL_PATH)/fstab.g2:root/fstab.g2
-endif
-
 # Sensors
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf \
@@ -127,8 +114,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-# Build XML parser since we no longer use a prebuilt
+# Misc dependency packages
 PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes \
+    curl \
+    libnl_2 \
+    libbson \
+    libcnefeatureconfig \
     libxml2
 
 # Live Wallpapers
@@ -176,7 +169,7 @@ PRODUCT_PACKAGES += \
 
 # Local wrapper for fixups
 PRODUCT_PACKAGES += \
-    camera.g2
+    camera.msm8974
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -221,7 +214,7 @@ PRODUCT_PACKAGES += \
     libloc_eng \
     libloc_api_v02 \
     libgps.utils \
-    gps.g2
+    gps.msm8974
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
@@ -230,9 +223,28 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     hwaddrs
 
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8974
+
 # Lights
 PRODUCT_PACKAGES += \
-    lights.g2
+    lights.msm8974
+
+# Power
+PRODUCT_PACKAGES += \
+    power.msm8974
+
+# Ramdisk
+PRODUCT_PACKAGES += \
+    fstab.g2 \
+    init.g2.rc \
+    init.g2.usb.rc \
+    init.g2.usb.sh \
+    ueventd.g2.rc
+
+PRODUCT_PACKAGES += \
+    init.galbi.thermal_conf.sh
 
 # This hw ships locked, work around it with loki
 PRODUCT_PACKAGES += \
