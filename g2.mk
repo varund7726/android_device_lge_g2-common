@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The Android Open-Source Project
+# Copyright (C) 2013-2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,6 +29,19 @@ DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 # Device uses high-density artwork where available 
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+
+# Init
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init.g2.usb.rc:root/init.g2.usb.rc \
+    $(LOCAL_PATH)/ueventd.g2.rc:root/ueventd.g2.rc
+
+# F320 requires different versions of these for SD card access
+# so use these only if we're NOT building F320
+ifneq ($(TARGET_DEVICE),f320)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init.g2.rc:root/init.g2.rc \
+    $(LOCAL_PATH)/fstab.g2:root/fstab.g2
+endif
 
 # Sensors
 PRODUCT_COPY_FILES += \
@@ -236,12 +249,12 @@ PRODUCT_PACKAGES += \
     power.msm8974
 
 # Ramdisk
-PRODUCT_PACKAGES += \
-    fstab.g2 \
-    init.g2.rc \
-    init.g2.usb.rc \
-    init.g2.usb.sh \
-    ueventd.g2.rc
+#PRODUCT_PACKAGES += \
+#    fstab.g2 \
+#    init.g2.rc \
+#    init.g2.usb.rc \
+#    init.g2.usb.sh \
+#    ueventd.g2.rc
 
 PRODUCT_PACKAGES += \
     init.galbi.thermal_conf.sh
