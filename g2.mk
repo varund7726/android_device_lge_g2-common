@@ -46,7 +46,8 @@ endif
 # Sensors
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf \
-    $(LOCAL_PATH)/configs/sensor_def_common.conf:system/etc/sensor_def_common.conf
+    $(LOCAL_PATH)/configs/sensor_def_common.conf:system/etc/sensor_def_common.conf \
+    $(LOCAL_PATH)/configs/sensor_def_variable.conf:system/etc/sensor_def_variable.conf
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -65,7 +66,6 @@ PRODUCT_COPY_FILES += \
 
 # Thermal
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermald-8974.conf:system/etc/thermald-8974.conf \
     $(LOCAL_PATH)/configs/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
 
 # Touchscreen
@@ -74,7 +74,8 @@ PRODUCT_COPY_FILES += \
 
 # Wi-Fi
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal \
+    $(LOCAL_PATH)/configs/xtwifi.conf:system/etc/xtwifi.conf
 
 # Prepatch to fix BT/WiFi bus lockups
 PRODUCT_COPY_FILES += \
