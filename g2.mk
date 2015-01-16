@@ -255,7 +255,8 @@ PRODUCT_PACKAGES += \
     init.g2.rc \
     init.g2.usb.rc \
     init.g2.usb.sh \
-    ueventd.g2.rc
+    ueventd.g2.rc \
+    init.galbi-sensor.sh
 
 PRODUCT_PACKAGES += \
     init.galbi.thermal_conf.sh
