@@ -238,8 +238,8 @@ PRODUCT_PACKAGES += \
     hwaddrs
 
 # Keystore
-PRODUCT_PACKAGES += \
-    keystore.msm8974
+#PRODUCT_PACKAGES += \
+#    keystore.msm8974
 
 # Lights
 PRODUCT_PACKAGES += \

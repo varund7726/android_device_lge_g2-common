@@ -220,14 +220,13 @@ on post-fs-data
     mkdir /data/system 0775 system system
     #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
-# Disable sensors here, instead enable it in init.galbi-sensor.sh
-#    # Create directory used by sensor subsystem
-#    mkdir /persist/sensors 0775 system root
-#    write /persist/sensors/sensors_settings 1
-#    chmod 0644 /persist/sensors/sensors_settings
-#    chown system root /persist/sensors/sensors_settings
-#    mkdir /data/misc/sensors 0775 system system
-#    restorecon_recursive /data/misc/sensors
+    # Create directory used by sensor subsystem
+    mkdir /persist/sensors 0775 system root
+    write /persist/sensors/sensors_settings 1
+    chmod 0644 /persist/sensors/sensors_settings
+    chown system root /persist/sensors/sensors_settings
+    mkdir /data/misc/sensors 0775 system system
+    restorecon_recursive /data/misc/sensors
 
     # Provide the access to hostapd.conf only to root and group
     chmod 0660 /data/hostapd/hostapd.conf
@@ -346,6 +345,11 @@ service run-parts /system/xbin/run-parts
     user root
     group root system
 
+service audiod /system/bin/audiod
+   class late_start
+   user system
+   group system
+
 service bridgemgrd /system/bin/bridgemgrd
     class main
     user radio
@@ -419,6 +423,12 @@ service gsiff_daemon /system/bin/gsiff_daemon
     user gps
     group gps net_raw misc
 
+service location_mq /system/bin/location-mq
+    class late_start
+    user gps
+    group gps
+    disabled
+
 service qseecomd /system/bin/qseecomd
     class late_start
     user root
@@ -433,7 +443,7 @@ service thermal-engine /system/bin/thermal-engine
     user root
     group root
 
-service qcom-sensor-sh /system/bin/sh /init.galbi-sensor.sh
+service qcom-sensor-sh /system/bin/sh /etc/init.galbi-sensor.sh
     class main
     user root
     oneshot
