@@ -59,6 +59,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
 
+# Force camera portability API
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/misc/bdaddr
 

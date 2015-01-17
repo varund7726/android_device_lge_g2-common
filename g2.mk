@@ -254,9 +254,17 @@ PRODUCT_PACKAGES += \
     fstab.g2 \
     init.g2.rc \
     init.g2.usb.rc \
-    init.g2.usb.sh \
-    ueventd.g2.rc \
-    init.galbi-sensor.sh
+    init.galbi.bt.sh \
+    init.qcom.sh \
+    ueventd.g2.rc
+
+# Qcom init scripts for /etc
+#PRODUCT_PACKAGES += \
+#    init.qcom.bt.bluedroid.sh \
+#    init.qcom.bt.sh \
+#    init.qcom.rc \
+#    init.qcom.usb.rc \
+#    ueventd.qcom.rc
 
 PRODUCT_PACKAGES += \
     init.galbi.thermal_conf.sh
