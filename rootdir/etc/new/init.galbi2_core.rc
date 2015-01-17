@@ -55,16 +55,17 @@ on init
 on post-fs
     # matia.kim@lge.com 2013.04.10 execute sreadahead daemon to reduce boot-time
     start sreadahead
-# Begin keyguard file for ghost finger(jasper.kim@lge.com)
+# Begin keyguard file for ghost finger(jasper.kim@lge.com)  
    chown system system /sys/devices/virtual/input/lge_touch/lpwg_data
    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_data
-   chown system system /sys/devices/virtual/input/lge_touch/lpwg_notify
+   chown system radio /sys/devices/virtual/input/lge_touch/lpwg_notify
    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_notify
    chown system lgkeyguard /sys/devices/virtual/input/lge_touch/keyguard
    chmod 664 /sys/devices/virtual/input/lge_touch/keyguard
    chown system system /sys/devices/virtual/input/lge_touch/incoming_call
    chmod 664 /sys/devices/virtual/input/lge_touch/touch_gesture
-   chown system system /sys/devices/virtual/input/lge_touch/touch_gesture
+   chown system radio /sys/devices/virtual/input/lge_touch/touch_gesture
+   chmod 664 /sys/devices/virtual/input/lge_touch/touch_gesture
    chown system system /sys/devices/virtual/input/lge_touch/ime_status
    chown system system /sys/devices/virtual/input/lge_touch/mfts
    chmod 640 /sys/devices/virtual/input/lge_touch/mfts
@@ -178,18 +179,19 @@ on boot
     #For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
+#   Buffer sizes should be declared as an overlay in frameworks/base/core/res/res/values/config.xml
 #   Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
-    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.hspa    4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsupa   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hsdpa   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
-    setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
+#    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+#    setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
+#    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
+#    setprop net.tcp.buffersize.hspa    4094,87380,1220608,4096,16384,1220608
+#    setprop net.tcp.buffersize.hsupa   4094,87380,1220608,4096,16384,1220608
+#    setprop net.tcp.buffersize.hsdpa   4094,87380,1220608,4096,16384,1220608
+#    setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
+#    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
+#    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+#    setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
 
 #   Assign TCP buffer thresholds to be ceiling value of technology maximums
 #   Increased technology maximums should be reflected here.
@@ -332,6 +334,39 @@ on post-fs-data
     mkdir /data/data/media 0770 media media
 
 	mkdir /data/misc/audit 02750 system system
+    
+    # Torch
+    chown system camera /sys/class/leds/led:flash_torch/brightness
+    chmod 0660 /sys/class/leds/led:flash_torch/brightness
+
+on charger-fs
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system  /system ro barrier=1
+    start rmt_storage
+
+on charger
+    trigger charger-fs
+
+    # Booting modem
+    wait /dev/block/platform/msm_sdcc.1/by-name/modem
+    mount vfat /dev/block/platform/msm_sdcc.1/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+    wait /dev/block/platform/msm_sdcc.1/by-name/system
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system ro barrier=1
+    start rmt_storage
+    start irsc_util
+
+    # Enable Power modes and set the CPU Freq Sampling rates
+    write /sys/module/lpm_levels/enable_low_power/l2 4
+    write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
+    write /sys/module/msm_pm/modes/cpu1/power_collapse/suspend_enabled 1
+    write /sys/module/msm_pm/modes/cpu2/power_collapse/suspend_enabled 1
+    write /sys/module/msm_pm/modes/cpu3/power_collapse/suspend_enabled 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
 
 service auditd /system/bin/auditd -k
 	class main
@@ -525,7 +560,7 @@ service netmgrd /system/bin/netmgrd
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root
+    group root sensors radio system
     disabled
 
 on property:ro.use_data_netmgrd=false
@@ -756,8 +791,9 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     disabled
     oneshot
 
-service charger /charger
+service charger /sbin/healthd -c
     class charger
+    seclabel u:r:healthd:s0
 
 # LGE_CHANGE_S, 20120903, jin.park@lge.com, Mobile DM Router
 service lg_dm_router /system/bin/lg_dm_router
@@ -968,3 +1004,40 @@ service set_emmc_size /system/bin/sh /set_emmc_size.sh
     group media_rw system sdcard_rw
     disabled
     oneshot
+
+## Power profiles (CM QS tile)
+## restarting thermal-engine will kill the system :/
+
+# Powersave
+on property:sys.perf.profile=0
+    start mpdecision
+    #start thermal-engine
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor conservative
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor conservative
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor conservative
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor ondemand
+
+# Balanced
+on property:sys.perf.profile=1
+    start mpdecision
+    #start thermal-engine
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor ondemand
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor ondemand
+
+# High performance
+on property:sys.perf.profile=2
+    stop mpdecision
+    #stop thermal-engine
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor performance
