@@ -30,10 +30,6 @@ on init
     export EMULATED_STORAGE_TARGET /storage/emulated
     export SECONDARY_STORAGE /storage/usbdisk
 
-    # 4.2 bootloader still puts sensor socket in /data/app
-    # but 5.0.1 blobs reference /dev/socket, so symlink it
-    #symlink /data/app/sensor_ctl_socket /dev/socket/sensor_ctl_socket
-
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
@@ -381,11 +377,11 @@ service netmgrd /system/bin/netmgrd
     class main
     disabled
 
+# QCOM sensor
 service sensors /system/bin/sensors.qcom
-    class main
+    class late_start
     user root
     group root
-    disabled
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     class main
