@@ -253,12 +253,37 @@ PRODUCT_PACKAGES += \
     fstab.g2 \
     init.g2.rc \
     init.g2.usb.rc \
-    init.g2.usb.sh \
     ueventd.g2.rc \
-    init.galbi-sensor.sh
+    init.g2_core.rc \
+    init.g2_product.rc \
+    init.galbi2_core.rc \
+    init.lge.early.rc \
+    init.lge.log.rc \
+    init.lge.modem_log.rc \
+    init.lge.power.rc \
+    init.lge.rc \
+    init.qcom.rc \
+    init.target.rc \
+    init.lge.usb.rc \
+    init.galbi.bt_vendor.rc \
+    init.g2.usb.rc
 
+# Qcom init scripts for /etc
 PRODUCT_PACKAGES += \
-    init.galbi.thermal_conf.sh
+    init.qcom.class_core.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.factory.sh \
+    init.qcom.ssr.sh \
+    init.qcom.syspart_fixup.sh
+
+# LGE init scripts for /etc
+PRODUCT_PACKAGES += \
+    init.class_main.sh \
+    init.g2.crash.sh \
+    init.galbi2.sensor.sh \
+    init.lge.cmm.usb.sh \
+    init.lge.usb.sh \
+    init.mdm.sh
 
 # This hw ships locked, work around it with loki
 PRODUCT_PACKAGES += \

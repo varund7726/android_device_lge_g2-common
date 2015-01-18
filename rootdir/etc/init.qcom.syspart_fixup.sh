@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,36 +26,54 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-#
-# Function to start sensors for DSPS enabled platforms
-#
-start_sensors()
-{
-    if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
-        mkdir -p /data/system/sensors
-        chmod 665 /data/system/sensors
-        touch /data/system/sensors/settings
-        chmod 775 /data/system/sensors
-        restorecon /data/system/sensors/settings
-        chmod 664 /data/system/sensors/settings
-        chown system /data/system/sensors/settings
+target="$1"
+serial="$2"
 
-        # AKM setting data
-        mkdir -p /data/misc/sensors
-        chmod 775 /data/misc/sensors
+# No path is set up at this point so we have to do it here.
+PATH=/sbin:/system/sbin:/system/bin:/system/xbin
+export PATH
 
-        mkdir -p /persist/sensors
-        chmod 775 /persist/sensors
+mount_needed=false;
 
-        if [ ! -s /data/system/sensors/settings ]; then
-            # If the settings file is empty, enable sensors HAL
-            # Otherwise leave the file with it's current contents
-            echo 1 > /data/system/sensors/settings
-            # Method for init.rc below... Above should produce the same result
-            # write /data/system/sensors/settings 1
-        fi
-        start sensors
-    fi
-}
+if [ ! -f /system/etc/boot_fixup ];then
+# This should be the first command
+# remount system as read-write.
+  mount -o rw,remount,barrier=1 /system
+  mount_needed=true;
+fi
 
-start_sensors
+# **** WARNING *****
+# This runs in a single-threaded, critical path portion
+# of the Android bootup sequence.  This is to guarantee
+# all necessary system partition fixups are done before
+# the rest of the system starts up.  Run any non-
+# timing critical tasks in a separate process to
+# prevent slowdown at boot.
+
+# Run modem link script
+if [ -f /system/etc/init.qcom.modem_links.sh ]; then
+  /system/bin/sh /system/etc/init.qcom.modem_links.sh
+fi
+
+# Run mdm link script
+if [ -f /system/etc/init.qcom.mdm_links.sh ]; then
+  /system/bin/sh /system/etc/init.qcom.mdm_links.sh
+fi
+
+# Run wifi script
+if [ -f /system/etc/init.qcom.wifi.sh ]; then
+  /system/bin/sh /system/etc/init.qcom.wifi.sh "$target" "$serial"
+fi
+
+# Run the sensor script
+if [ -f /system/etc/init.qcom.sensor.sh ]; then
+  /system/bin/sh /system/etc/init.qcom.sensor.sh
+fi
+
+touch /system/etc/boot_fixup
+
+if $mount_needed ;then
+# This should be the last command
+# remount system as read-only.
+  mount -o ro,remount,barrier=1 /system
+fi
