@@ -30,6 +30,10 @@ on init
     export EMULATED_STORAGE_TARGET /storage/emulated
     export SECONDARY_STORAGE /storage/usbdisk
 
+    # 4.2 bootloader still puts sensor socket in /data/app
+    # but 5.0.1 blobs reference /dev/socket, so symlink it
+    symlink /data/app/sensor_ctl_socket /dev/socket/sensor_ctl_socket
+
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
@@ -65,9 +69,6 @@ on early-boot
     setrlimit 8 67108864 67108864
 
 on boot
-    # 4.2 bootloader still puts sensor socket in /data/app
-    # but 5.0.1 blobs reference /dev/socket, so symlink it
-    symlink /data/app/sensor_ctl_socket /dev/socket/sensor_ctl_socket
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
@@ -231,6 +232,15 @@ on post-fs-data
     mkdir /data/misc/sensors 0775 system system
     restorecon_recursive /data/misc/sensors
 
+    mkdir /data/system/sensors
+    chmod 665 /data/system/sensors
+    touch /data/system/sensors/settings
+    write /data/system/sensors/settings 1
+    chmod 0775 /data/system/sensors
+    restorecon /data/system/sensors/settings
+    chmod 0664 /data/system/sensors/settings
+    chown system /data/system/sensors/settings
+    
     # Provide the access to hostapd.conf only to root and group
     chmod 0660 /data/hostapd/hostapd.conf
 
