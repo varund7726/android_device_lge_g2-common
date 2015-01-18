@@ -83,9 +83,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.sensors.pam=true \
     ro.qualcomm.sensors.scrn_ortn=true \
     persist.debug.sensors.hal=i \
-    debug.qualcomm.sns.hal=w \
+    debug.qualcomm.sns.hal=i \
     debug.qualcomm.sns.daemon=i \
-    debug.qualcomm.sns.libsensor1=e
+    debug.qualcomm.sns.libsensor1=i
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
