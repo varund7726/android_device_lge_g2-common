@@ -255,7 +255,7 @@ PRODUCT_PACKAGES += \
     init.qcom.sh \
     ueventd.g2.rc
 
-ifeq ($(BOARD_USES_LOLLIPOP_RAMDISK),true)
+# Qcom init scripts for /etc
 PRODUCT_PACKAGES += \
     init.class_main.sh \
     init.g2.crash.sh \
@@ -267,7 +267,9 @@ PRODUCT_PACKAGES += \
     init.qcom.early_boot.sh \
     init.qcom.factory.sh \
     init.qcom.ssr.sh \
-    init.qcom.syspart_fixup.sh \
+    init.qcom.syspart_fixup.sh
+
+PRODUCT_PACKAGES += \
     init.g2_core.rc \
     init.g2_product.rc \
     init.galbi2_core.rc \
@@ -278,26 +280,14 @@ PRODUCT_PACKAGES += \
     init.lge.rc \
     init.qcom.rc \
     init.target.rc
-endif
 
-ifeq ($(BOARD_USES_LOLLIPOP_RAMDISK),true)
 PRODUCT_PACKAGES += \
     init.lge.usb.rc \
     init.galbi.bt_vendor.rc
-else
-PRODUCT_PACKAGES += \
-    init.g2.usb.rc \
-    init.galbi.bt.sh
-endif
 
-# Qcom init scripts for /etc
 #PRODUCT_PACKAGES += \
-#    init.qcom.bt.bluedroid.sh \
-#    init.qcom.bt.sh \
-#    init.qcom.rc \
-#    init.qcom.usb.rc \
-#    ueventd.qcom.rc \
-#    init.galbi.thermal_conf.sh
+#    init.g2.usb.rc \
+#    init.galbi.bt.sh
 
 # This hw ships locked, work around it with loki
 PRODUCT_PACKAGES += \
