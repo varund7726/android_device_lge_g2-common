@@ -252,10 +252,43 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fstab.g2 \
     init.g2.rc \
-    init.g2.usb.rc \
-    init.galbi.bt.sh \
     init.qcom.sh \
     ueventd.g2.rc
+
+ifeq ($(BOARD_USES_LOLLIPOP_RAMDISK),true)
+PRODUCT_PACKAGES += \
+    init.class_main.sh \
+    init.g2.crash.sh \
+    init.galbi2.sensor.sh \
+    init.lge.cmm.usb.sh \
+    init.lge.usb.sh \
+    init.mdm.sh \
+    init.qcom.class_core.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.factory.sh \
+    init.qcom.ssr.sh \
+    init.qcom.syspart_fixup.sh \
+    init.g2_core.rc \
+    init.g2_product.rc \
+    init.galbi2_core.rc \
+    init.lge.early.rc \
+    init.lge.log.rc \
+    init.lge.modem_log.rc \
+    init.lge.power.rc \
+    init.lge.rc \
+    init.qcom.rc \
+    init.target.rc
+endif
+
+ifeq ($(BOARD_USES_LOLLIPOP_RAMDISK),true)
+PRODUCT_PACKAGES += \
+    init.lge.usb.rc \
+    init.galbi.bt_vendor.rc
+else
+PRODUCT_PACKAGES += \
+    init.g2.usb.rc \
+    init.galbi.bt.sh
+endif
 
 # Qcom init scripts for /etc
 #PRODUCT_PACKAGES += \
@@ -263,10 +296,8 @@ PRODUCT_PACKAGES += \
 #    init.qcom.bt.sh \
 #    init.qcom.rc \
 #    init.qcom.usb.rc \
-#    ueventd.qcom.rc
-
-PRODUCT_PACKAGES += \
-    init.galbi.thermal_conf.sh
+#    ueventd.qcom.rc \
+#    init.galbi.thermal_conf.sh
 
 # This hw ships locked, work around it with loki
 PRODUCT_PACKAGES += \

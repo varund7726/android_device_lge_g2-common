@@ -157,4 +157,4 @@ TARGET_SPECIFIC_HEADER_PATH := device/lge/g2-common/include
 #BOARD_USES_LEGACY_MMAP := true
 
 # Ramdisk switch
-BOARD_USES_LOLLIPOP_RAMDISK := false
+BOARD_USES_LOLLIPOP_RAMDISK := true

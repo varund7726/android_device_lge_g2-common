@@ -19,6 +19,7 @@ LOCAL_MODULE       := init.class_main.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.class_main.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -26,6 +27,7 @@ LOCAL_MODULE       := init.g2.crash.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.g2.crash.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -33,6 +35,7 @@ LOCAL_MODULE       := init.galbi2.sensor.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.galbi2.sensor.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -40,6 +43,7 @@ LOCAL_MODULE       := init.lge.cmm.usb.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.lge.cmm.usb.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -47,6 +51,7 @@ LOCAL_MODULE       := init.lge.usb.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.lge.usb.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -61,6 +66,7 @@ LOCAL_MODULE       := init.qcom.class_core.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.qcom.class_core.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -68,6 +74,7 @@ LOCAL_MODULE       := init.qcom.early_boot.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.qcom.early_boot.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -75,6 +82,7 @@ LOCAL_MODULE       := init.qcom.factory.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.qcom.factory.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -82,6 +90,7 @@ LOCAL_MODULE       := init.qcom.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.qcom.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -89,6 +98,7 @@ LOCAL_MODULE       := init.qcom.ssr.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.qcom.ssr.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
@@ -96,6 +106,7 @@ LOCAL_MODULE       := init.qcom.syspart_fixup.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/new/init.qcom.syspart_fixup.sh
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)
 include $(BUILD_PREBUILT)
 
 # Init scripts
