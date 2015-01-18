@@ -371,7 +371,7 @@ service netmgrd /system/bin/netmgrd
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root
+    group root sensors radio system
     disabled
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
@@ -467,11 +467,15 @@ service thermal-engine /system/bin/thermal-engine
     user root
     group root
 
-service qcom-sensor-sh /system/bin/sh /etc/init.galbi-sensor.sh
+service qcom-sensor-sh /system/bin/sh /etc/init.galbi2.sensor.sh
     class main
-    user root
+    user root sensors radio system
     oneshot
-    disabled
+
+service lge-sensor /system/bin/sh /etc/init.galbi2.sensor.sh
+    class main
+    user root sensors radio system
+    oneshot
 
 service wcnss-service /system/bin/wcnss_service
     class main
