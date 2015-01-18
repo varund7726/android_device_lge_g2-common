@@ -65,6 +65,9 @@ on early-boot
     setrlimit 8 67108864 67108864
 
 on boot
+    # 4.2 bootloader still puts sensor socket in /data/app
+    # but 5.0.1 blobs reference /dev/socket, so symlink it
+    symlink /data/app/sensor_ctl_socket /dev/socket/sensor_ctl_socket
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
