@@ -266,8 +266,7 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     init.lge.usb.rc \
     init.galbi.bt_vendor.rc \
-    init.g2.usb.rc \
-    init.g2_cm.rc
+    init.g2.usb.rc
 
 # Qcom init scripts for /etc
 PRODUCT_PACKAGES += \
