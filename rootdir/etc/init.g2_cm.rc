@@ -47,6 +47,11 @@ service charger /sbin/healthd -c
     class charger
     seclabel u:r:healthd:s0
 
+service irsc_util /system/bin/irsc_util "/etc/sec_config"
+    class main
+    user root
+    oneshot
+
 ## Power profiles (CM QS tile)
 
 # Powersave
