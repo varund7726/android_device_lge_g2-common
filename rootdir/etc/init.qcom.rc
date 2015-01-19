@@ -405,7 +405,7 @@ service dpmd /system/bin/dpmd
     class late_start
     socket dpmd stream 660 root system
 
-service irsc_util /system/bin/logwrapper /system/bin/irsc_util "/etc/sec_config"
+service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
@@ -538,7 +538,7 @@ service qti /system/vendor/bin/qti
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root
+    group root sensors radio system
     disabled
 
 on property:ro.use_data_netmgrd=false
@@ -848,8 +848,9 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     disabled
     oneshot
 
-service charger /charger
+service charger /sbin/healthd -c
     class charger
+    seclabel u:r:healthd:s0
 
 service ssr_diag /system/bin/ssr_diag
     class late_start
