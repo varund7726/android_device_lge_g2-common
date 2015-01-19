@@ -2,6 +2,7 @@
 
 # to override this file (device specific .rc)
 import /init.${ro.hardware}_core.rc
+import /init.${ro.hardware}_cm.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug

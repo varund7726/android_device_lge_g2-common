@@ -1,5 +1,3 @@
-# Copyright (c) 2015, The CyanogenMod Project. All rights reserved.
-
 on early-init
     start ueventd
 
