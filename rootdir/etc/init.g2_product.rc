@@ -1,3 +1,6 @@
+# Import CM specific changes to override LG and Qualcomm's crap
+import /init.g2_cm.rc
+
 on init
     mkdir /storage/external_SD 0700 root root
     mkdir /mnt/media_rw 0700 media_rw media_rw
