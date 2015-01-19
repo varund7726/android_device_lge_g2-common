@@ -186,7 +186,3 @@
 /dev/smdcnt_rev7          0640   radio      radio
 /dev/smdcnt_rev8          0640   radio      radio
 #[ePDG][START][changhwan.lee] reverse Rmnet Permission for ePDG
-
-# wcnss wlan
-/dev/wcnss_wlan           0660   system     system
-/dev/wcnss_ctrl           0660   system     system
