@@ -1,4 +1,4 @@
-# Copyright (C) 2011 The CyanogenMod project
+# Copyright (C) 2015 The CyanogenMod project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifneq ($(filter d850 d852 d855 vs985,$(TARGET_DEVICE)),)
+ifneq ($(filter g2 d800 d801 d802 d803 f320 ls980 vs980,$(TARGET_DEVICE)),)
 
 LOCAL_PATH:= $(call my-dir)
 

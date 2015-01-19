@@ -52,6 +52,12 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
     user root
     oneshot
 
+service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio qcom_diag
+    oneshot
+
 ## Power profiles (CM QS tile)
 
 # Powersave
