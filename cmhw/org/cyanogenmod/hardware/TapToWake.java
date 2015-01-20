@@ -22,18 +22,16 @@ public class TapToWake {
 
     private static String OLD_CONTROL_PATH = "/sys/devices/virtual/input/lge_touch/touch_gesture";
     private static String CONTROL_PATH = "/sys/devices/virtual/input/lge_touch/lpwg_notify";
-    private static boolean mEnabled = true;
 
     public static boolean isSupported() {
         return true;
     }
 
     public static boolean isEnabled()  {
-        return mEnabled;
+        return Integer.parseInt(FileUtils.readOneLine(CONTROL_PATH)) == 1;
     }
 
     public static boolean setEnabled(boolean state)  {
-        mEnabled = state;
         return
             FileUtils.writeLine(OLD_CONTROL_PATH, (state ? "1" : "0")) &&
             FileUtils.writeLine(CONTROL_PATH, (state ? "1 1 0 0" : "1 0 0 0"))
