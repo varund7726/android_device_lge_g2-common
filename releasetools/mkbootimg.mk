@@ -1,8 +1,8 @@
 LOCAL_PATH := $(call my-dir)
 
 ## THIS IS A DEFAULT: YOU SHOULD OVERRIDE IT FROM THE DEVICE-SPECIFIC
-## BoardConfig. Check the kernel's arch/arm/boot/dts/ path for possible
-## values.
+## BoardConfig. Check the kernel's arch/arm/boot/dts/lge/msm8974-g2/
+## path for possible values.
 G2_DTS_TARGET ?= msm8974-g2-open_com
 
 
@@ -14,15 +14,15 @@ G2_DTS_TARGET ?= msm8974-g2-open_com
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
 G2_DTS_NAMES := msm8974
 
-G2_DTS_FILES = $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/$(G2_DTS_TARGET)/*.dts)
+G2_DTS_FILES = $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/lge/msm8974-g2/$(G2_DTS_TARGET)/*.dts)
 G2_DTS_FILE = $(lastword $(subst /, ,$(1)))
-DTB_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%.dtb,$(call G2_DTS_FILE,$(1))))
-ZIMG_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%-zImage,$(call G2_DTS_FILE,$(1))))
+DTB_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/lge/msm8974-g2/,$(patsubst %.dts,%.dtb,$(call G2_DTS_FILE,$(1))))
+ZIMG_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/lge/msm8974-g2/,$(patsubst %.dts,%-zImage,$(call G2_DTS_FILE,$(1))))
 KERNEL_ZIMG = $(KERNEL_OUT)/arch/arm/boot/zImage
 DTC = $(KERNEL_OUT)/scripts/dtc/dtc
 
 define append-g2-dtb
-mkdir -p $(KERNEL_OUT)/arch/arm/boot;\
+mkdir -p $(KERNEL_OUT)/arch/arm/boot/lge/msm8974-g2;\
 $(foreach G2_DTS_NAME, $(G2_DTS_NAMES), \
    $(foreach d, $(G2_DTS_FILES), \
       $(DTC) -p 1024 -O dtb -o $(call DTB_FILE,$(d)) $(d); \
