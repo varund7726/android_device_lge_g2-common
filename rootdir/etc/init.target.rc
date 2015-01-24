@@ -225,12 +225,6 @@ on property:init.svc.bootanim=stopped
 #    group system wifi radio inet net_raw log qcom_diag net_admin
 #	 disabled
 
-service wcnss-service /system/bin/wcnss_service
-    class main
-    user system
-    group system wifi radio qcom_diag
-    oneshot
-
 #on property:sys.ims.QMI_DAEMON_STATUS=1
 #	 start imsdatadaemon
 
