@@ -44,7 +44,6 @@ on post-fs
 
 on fs
     mount_all ./fstab.g2
-    restorecon_recursive /sns
 
     # create mount point for LG Specific functions
     mkdir /sns 0755 system system
