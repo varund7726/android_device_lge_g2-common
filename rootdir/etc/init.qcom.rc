@@ -538,7 +538,7 @@ service qti /system/vendor/bin/qti
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root sensors radio system
+    group root
     disabled
 
 on property:ro.use_data_netmgrd=false
