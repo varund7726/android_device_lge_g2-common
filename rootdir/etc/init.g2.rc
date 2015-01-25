@@ -218,6 +218,9 @@ on post-fs-data
     chmod 0664 /data/system/sensors/settings
     chown system /data/system/sensors/settings
 
+    # Create /sns/cal for sensor registry
+    mkdir /sns/cal 0775 system root
+
     # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
@@ -387,12 +390,10 @@ service netmgrd /system/bin/netmgrd
     class main
     disabled
 
-# QCOM sensor
 service sensors /system/bin/sensors.qcom
-    class main
+    class late_start
     user root
     group root
-    disabled
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     class main
