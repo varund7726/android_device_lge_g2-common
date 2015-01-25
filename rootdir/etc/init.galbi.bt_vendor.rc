@@ -28,39 +28,71 @@
 #cockoo140127
 on boot
 
-# LGE_CHANGE_S, [BT][younghyun.kwon@lge.com], 2013-04-10, Bluetooth Permission
-#    chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
+    chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwake
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/proto
-#    chown bluetooth bluetooth /proc/bluetooth/sleep/lpm
-#    chown bluetooth bluetooth /proc/bluetooth/sleep/btwrite
-#    chown system system /sys/module/sco/parameters/disable_esco
-#    chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
-#    chmod 0660 /sys/module/bluetooth_power/parameters/power
-#    chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
+    chown bluetooth bluetooth /proc/bluetooth/sleep/lpm
+    chown bluetooth bluetooth /proc/bluetooth/sleep/btwrite
+    chown system system /sys/module/sco/parameters/disable_esco
+    chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
+    chmod 0660 /sys/module/bluetooth_power/parameters/power
+    chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/btwake
     chmod 0660 /proc/bluetooth/sleep/proto
-#    chmod 0660 /proc/bluetooth/sleep/lpm
-#    chmod 0660 /proc/bluetooth/sleep/btwrite
+    chmod 0660 /proc/bluetooth/sleep/lpm
+    chmod 0660 /proc/bluetooth/sleep/btwrite
     chown bluetooth net_bt_stack /dev/ttyHS99
     chmod 0660 /sys/module/hci_uart/parameters/ath_lpm
     chmod 0660 /sys/module/hci_uart/parameters/ath_btwrite
     chmod 0660 /dev/ttyHS99
-#    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
-#    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
-# LGE_CHANGE_E, [BT][younghyun.kwon@lge.com], 2013-04-10
+    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
+    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
-    # Feature chip vendor : brcm
-    setprop bluetooth.chip.vendor brcm
+    # Feature chip vendor : qct
+    setprop bluetooth.chip.vendor qcom
 
-    # For BCM FM Radio
-    setprop ro.fm.module BCM
 
-service bdaddr_loader /system/bin/bdaddr_loader
+
+service config_bluetooth /system/bin/sh /system/etc/init.galbi.bt.sh "onboot"
+    class core
     user root
-    group bluetooth net_bt_admin misc net_bt_stack
+    oneshot
+
+service hciattach /system/bin/sh /system/etc/init.galbi.bt.sh
+    class late_start
+    user bluetooth
+    group qcom_oncrpc bluetooth net_bt_admin
     disabled
     oneshot
+
+on property:bluetooth.sap.status=running
+    start bt-sap
+
+on property:bluetooth.sap.status=stopped
+    stop bt-sap
+
+on property:bluetooth.hciattach=true
+    start hciattach
+
+on property:bluetooth.hciattach=false
+    setprop bluetooth.status off
+
+service hciattach_ath3k /system/bin/sh /system/etc/init.ath3k.bt.sh
+     class late_start
+     user bluetooth
+     group system bluetooth net_bt_admin misc
+     disabled
+     oneshot
+
+
+
+service btwlancoex /system/bin/sh /system/etc/init.galbi.coex.sh
+    class late_start
+    user bluetooth
+    group bluetooth net_bt_admin inet net_admin net_raw
+    disabled
+    oneshot
+

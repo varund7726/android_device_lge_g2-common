@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2013, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -8,7 +8,7 @@
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-#     * Neither the name of Linux Foundation nor
+#     * Neither the name of The Linux Foundation nor
 #       the names of its contributors may be used to endorse or promote
 #       products derived from this software without specific prior written
 #       permission.
@@ -26,8 +26,36 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-baseband=`getprop ro.baseband`
-if [ "$baseband" = "mdm" ] || [ "$baseband" = "mdm2" ]; then
-	start mdm_helper
-fi
+#
+# Function to start sensors for DSPS enabled platforms
+#
+start_sensors()
+{
+    if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
+        mkdir -p /data/system/sensors
+        chmod 665 /data/system/sensors
+        touch /data/system/sensors/settings
+        chmod 775 /data/system/sensors
+        restorecon /data/system/sensors/settings
+        chmod 664 /data/system/sensors/settings
+        chown system /data/system/sensors/settings
 
+        # AKM setting data
+        mkdir -p /data/misc/sensors
+        chmod 775 /data/misc/sensors
+
+        mkdir -p /persist/sensors
+        chmod 775 /persist/sensors
+
+        if [ ! -s /data/system/sensors/settings ]; then
+            # If the settings file is empty, enable sensors HAL
+            # Otherwise leave the file with it's current contents
+            echo 1 > /data/system/sensors/settings
+            # Method for init.rc below... Above should produce the same result
+            # write /data/system/sensors/settings 1
+        fi
+        start sensors
+    fi
+}
+
+start_sensors

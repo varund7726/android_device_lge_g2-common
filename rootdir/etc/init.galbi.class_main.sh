@@ -1,5 +1,5 @@
-# Copyright (c) 2011, Code Aurora Forum. All rights reserved.
-# Copyright (c) 2011-2012, LG Electronics Inc. All rights reserved.
+#!/system/bin/sh
+# Copyright (c) 2012, Code Aurora Forum. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,62 +26,44 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-service lg_dm_router1 /system/bin/lg_dm_router 1
-    class late_start
-    user system
-    group system sdcard_r sdcard_rw media_rw
-    disabled
-    oneshot
+#
+# start ril-daemon only for targets on which radio is present
+#
+baseband=`getprop ro.baseband`
+multirild=`getprop ro.multi.rild`
+dsds=`getprop persist.dsds.enabled`
+netmgr=`getprop ro.use_data_netmgrd`
+sgltecsfb=`getprop persist.radio.sglte_csfb`
 
-service lg_dm_router2 /system/bin/lg_dm_router 2
-    class late_start
-    user system
-    group system
-    disabled
-    socket Full.DM.port stream 660 system system
+case "$baseband" in
+    "apq")
+    setprop ro.radio.noril yes
+    stop ril-daemon
+esac
 
-service lg_odm_service1 /system/bin/lg_odm_service 1
-    class late_start
-    user system
-    group system net_raw sdcard_r sdcard_rw media_rw
-    disabled
-    oneshot
-
-service lg_odm_service2 /system/bin/lg_odm_service 2
-    class late_start
-    user system
-    group system net_raw sdcard_r sdcard_rw media_rw
-    disabled
-    oneshot
-    socket Full.ODM.port stream 660 system system
-
-on post-fs
-    chmod 0660 /dev/lge_dm_tty0
-    chown system system /dev/lge_dm_tty0
-
-on property:persist.service.odm_log.enable=true
-     start lg_dm_router1
-
-on property:persist.service.dm_app.enable=true
-    start lg_dm_router2
-
-on property:persist.service.dm_app.enable=false
-    stop lg_dm_router2
-
-on property:persist.service.odmevent.enable=true
-    start lg_odm_service1
-
-on property:persist.service.odm_app.enable=true
-    start lg_odm_service2
-
-on post-fs-data
-
-service modem_debug_info /system/bin/sh /system/bin/modem_debug_info.sh
-	class late_start
-	user system
-	group system
-    disabled
-    oneshot
-
-on property:sys.boot_completed=1
-	start modem_debug_info
+case "$baseband" in
+    "msm" | "csfb" | "svlte2a" | "mdm" | "sglte" | "unknown")
+    start qmuxd
+    case "$baseband" in
+        "svlte2a" | "csfb")
+        start qmiproxy
+        ;;
+        "sglte")
+        if [ "x$sgltecsfb" != "xtrue" ]; then
+          start qmiproxy
+        else
+          setprop persist.radio.voice.modem.index 0
+        fi
+    esac
+    case "$multirild" in
+        "true")
+         case "$dsds" in
+             "true")
+             start ril-daemon1
+         esac
+    esac
+    case "$netmgr" in
+        "true")
+        start netmgrd
+    esac
+esac

@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2012, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012, Code Aurora Forum. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -8,7 +8,7 @@
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-#     * Neither the name of The Linux Foundation nor
+#     * Neither the name of Code Aurora nor
 #       the names of its contributors may be used to endorse or promote
 #       products derived from this software without specific prior written
 #       permission.
@@ -51,23 +51,33 @@ fi
 # prevent slowdown at boot.
 
 # Run modem link script
-if [ -f /system/etc/init.qcom.modem_links.sh ]; then
-  /system/bin/sh /system/etc/init.qcom.modem_links.sh
+if [ -f /system/etc/init.galbi.modem_links.sh ]; then
+  /system/bin/sh /system/etc/init.galbi.modem_links.sh
 fi
 
 # Run mdm link script
-if [ -f /system/etc/init.qcom.mdm_links.sh ]; then
-  /system/bin/sh /system/etc/init.qcom.mdm_links.sh
+if [ -f /system/etc/init.galbi.mdm_links.sh ]; then
+  /system/bin/sh /system/etc/init.galbi.mdm_links.sh
+fi
+
+# Run thermal script
+if [ -f /system/etc/init.galbi.thermal_conf.sh ]; then
+  /system/bin/sh /system/etc/init.galbi.thermal_conf.sh
 fi
 
 # Run wifi script
-if [ -f /system/etc/init.qcom.wifi.sh ]; then
-  /system/bin/sh /system/etc/init.qcom.wifi.sh "$target" "$serial"
+if [ -f /system/etc/init.galbi.wifi.sh ]; then
+  /system/bin/sh /system/etc/init.galbi.wifi.sh "$target" "$serial"
 fi
 
 # Run the sensor script
-if [ -f /system/etc/init.qcom.sensor.sh ]; then
-  /system/bin/sh /system/etc/init.qcom.sensor.sh
+if [ -f /system/etc/init.galbi.sensor.sh ]; then
+  /system/bin/sh /system/etc/init.galbi.sensor.sh
+fi
+
+# Run usf script
+if [ -f /system/etc/usf_settings.sh ]; then
+  /system/bin/sh /system/etc/usf_settings.sh
 fi
 
 touch /system/etc/boot_fixup
@@ -77,3 +87,5 @@ if $mount_needed ;then
 # remount system as read-only.
   mount -o ro,remount,barrier=1 /system
 fi
+
+
