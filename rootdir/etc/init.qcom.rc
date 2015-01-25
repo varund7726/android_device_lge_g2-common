@@ -284,8 +284,6 @@ on post-fs-data
     #Create folder for mm-qcamera-daemon
     mkdir /data/camera 0770 media camera
 
-./device/lge/galbi2/qcom/device/common/rootdir/etc/init.qcom.rc
-
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
    class late_start
@@ -501,7 +499,7 @@ service qmiproxy /system/bin/qmiproxy
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps qcom_diag
+    group radio audio bluetooth gps qcom_diag sensors root system
     disabled
 
 service netmgrd /system/bin/netmgrd
@@ -526,7 +524,7 @@ service qti /system/vendor/bin/qti
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root
+    group root sensors radio system
     disabled
 
 on property:ro.use_data_netmgrd=false
@@ -779,13 +777,6 @@ service ril-daemon3 /system/bin/rild -c 3
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-service ril-daemon3 /system/bin/rild -c 3
-    class main
-    socket rild3 stream 660 root radio
-    socket rild-debug3 stream 660 radio system
-    user root
-    disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
     class late_start
     user root
