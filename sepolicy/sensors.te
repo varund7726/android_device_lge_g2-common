@@ -1,11 +1,5 @@
 allow sensors qmuxd:unix_stream_socket connectto;
-allow sensors qmuxd_socket:dir { write add_name search };
-allow sensors qmuxd_socket:sock_file { create setattr write };
+allow sensors qmuxd_socket:dir { create_dir_perms write add_name search };
+allow sensors qmuxd_socket:sock_file { read getattr write setattr create unlink };
 allow sensors self:capability sys_nice;
 allow sensors unlabeled:dir search;
-
-# sensors access device_latency for power purposes
-allow sensors device_latency:chr_file rw_file_perms;
-
-# sensors access wake_lock for power purposes
-allow sensors sysfs_wake_lock:chr_file rw_file_perms;
