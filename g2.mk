@@ -261,6 +261,7 @@ PRODUCT_PACKAGES += \
 # This hw ships locked, work around it with loki
 PRODUCT_PACKAGES += \
     loki.sh \
+    panel.sh \
     loki_tool_static_g2 \
     recovery-transform.sh
 
