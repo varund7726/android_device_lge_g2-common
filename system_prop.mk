@@ -81,7 +81,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.camera.facialproc=false \
     ro.qualcomm.sensors.pedometer=true \
     ro.qualcomm.sensors.pam=true \
-    ro.qualcomm.sensors.scrn_ortn=true \
+    ro.qualcomm.sensors.scrn_ortn=true
+
+# Sensor debugging
+# Valid settings (and presumably what they mean):
+#   0      - off
+#   1      - all the things
+#   V or v - verbose
+#   D or d - debug
+#   E or e - errors
+#   W or w - warnings
+#   I or i - info
+#
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=v \
     debug.qualcomm.sns.hal=v \
     debug.qualcomm.sns.daemon=v \
