@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2014, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,6 @@ start_sensors()
 {
     if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
         mkdir -p /data/system/sensors
-        chmod 665 /data/system/sensors
         touch /data/system/sensors/settings
         chmod 775 /data/system/sensors
         restorecon /data/system/sensors/settings
@@ -42,17 +41,23 @@ start_sensors()
 
         # AKM setting data
         mkdir -p /data/misc/sensors
-        chmod 775 /data/misc/sensors
+        chmod -h 775 /data/misc/sensors
 
-        mkdir -p /persist/sensors
-        chmod 775 /persist/sensors
+        chmod -h 775 /persist/sensors
+        chmod -h 664 /persist/sensors/sensors_settings
+        chown -h system.root /persist/sensors/sensors_settings
 
+        # LGE_START, make /sns/cal folder for save sensor registy
+        # If the sns directory exists, make sns/cal/ directory
+        if [ -d /sns ]; then
+          mkdir -p /sns/cal
+        fi
+        # LGE_END, make /sns/cal folder for save sensor registy
         if [ ! -s /data/system/sensors/settings ]; then
             # If the settings file is empty, enable sensors HAL
             # Otherwise leave the file with it's current contents
             echo 1 > /data/system/sensors/settings
-            # Method for init.rc below... Above should produce the same result
-            # write /data/system/sensors/settings 1
+            echo 1 > /persist/sensors/sensors_settings
         fi
         start sensors
     fi
