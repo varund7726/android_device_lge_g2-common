@@ -256,7 +256,10 @@ PRODUCT_PACKAGES += \
     init.g2.usb.sh \
     ueventd.g2.rc \
     init.galbi-sensor.sh \
-    init.galbi.thermal_conf.sh
+    init.galbi.thermal_conf.sh \
+    init.class_main.sh \
+    init.qcom.class_core.sh \
+    init.qcom.early_boot.sh
 
 # This hw ships locked, work around it with loki
 PRODUCT_PACKAGES += \
