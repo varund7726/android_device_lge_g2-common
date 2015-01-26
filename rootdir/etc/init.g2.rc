@@ -396,7 +396,7 @@ service netmgrd /system/bin/netmgrd
     class main
     disabled
 
-service sensors /system/bin/sensors.qcom
+service sensors /system/bin/logwrapper /system/bin/sensors.qcom
     class late_start
     user root
     group root
