@@ -1,7 +1,39 @@
-/dev/block/platform/msm_sdcc\.1/by-name/encrypt     u:object_r:encrypt_block_device:s0
-/dev/block/platform/msm_sdcc\.1/by-name/misc        u:object_r:misc_block_device:s0
+# labeling block device
+/dev/block/platform/.*/by-name/modem        u:object_r:modem_block_device:s0
+/dev/block/platform/.*/by-name/modemst1     u:object_r:modem_block_device:s0
+/dev/block/platform/.*/by-name/modemst2     u:object_r:modem_block_device:s0
+/dev/block/platform/.*/by-name/tzbak        u:object_r:tzbak_block_device:s0
+/dev/block/platform/.*/by-name/abootf       u:object_r:abootf_block_device:s0
+/dev/block/platform/.*/by-name/recovery     u:object_r:recovery_block_device:s0
+/dev/block/platform/.*/by-name/fsc          u:object_r:fsc_block_device:s0
+/dev/block/platform/.*/by-name/ssd          u:object_r:ssd_block_device:s0
+/dev/block/platform/.*/by-name/pad2         u:object_r:pad2_block_device:s0
+/dev/block/platform/.*/by-name/encrypt      u:object_r:encrypt_block_device:s0
+/dev/block/platform/.*/by-name/rct          u:object_r:rct_block_device:s0
+/dev/block/platform/.*/by-name/misc         u:object_r:misc_block_device:s0
+/dev/block/platform/.*/by-name/drm          u:object_r:drm_block_device:s0
+/dev/block/platform/.*/by-name/system       u:object_r:system_block_device:s0
+/dev/block/platform/.*/by-name/cache        u:object_r:cache_block_device:s0
+/dev/block/platform/.*/by-name/cust         u:object_r:cust_block_device:s0
+/dev/block/platform/.*/by-name/userdata     u:object_r:userdata_block_device:s0
+/dev/block/platform/.*/by-name/grow         u:object_r:grow_block_device:s0
+/dev/block/platform/.*/by-name/sec          u:object_r:sec_block_device:s0
+/dev/block/platform/.*/by-name/eksst        u:object_r:eksst_block_device:s0
 
+/sys/devices/virtual/input/lge_touch/touch_gesture          u:object_r:touchpanel_sysfs:s0
+/sys/devices/virtual/input/lge_touch/lpwg_notify	        u:object_r:touchpanel_sysfs:s0
+/sys/devices/virtual/input/lge_touch/ts_noise               u:object_r:sysfs_ts_noise:s0
+/sys/devices/virtual/input/lge_touch/ts_noise_log_enable    u:object_r:sysfs_ts_noise:s0
+/sys/devices/virtual/input/lge_touch/keyguard               u:object_r:sysfs_touch_keyguard:s0
 
+/sys/devices/platform/tspdrv/nforce_timed           u:object_r:time_data_file:s0
+
+/sns(/.*)?                            u:object_r:sensors_persist_file:s0
+/persist/sensors(/.*)/          	  u:object_r:sensors_persist_file:s0
+/persist/sensors/sensors_settings	  u:object_r:sensors_persist_file:s0
+/sys/devices/virtual/input/lge_accelerometer/run_fast_calibration       u:object_r:sysfs_calibration:s0
+/sys/devices/virtual/input/lge_proximity/ppcount                        u:object_r:sysfs_proximity_sensor:s0
+/sys/bus/platform/drivers/gsensor/run_fast_calibration                  u:object_r:sysfs_calibration:s0
 
 /sys/devices/virtual/input/lge_touch(/.*)?          u:object_r:touchpanel_sysfs:s0
 /sys/devices/virtual/input/lge_touch/lpwg_notify	u:object_r:touchpanel_sysfs:s0
@@ -17,4 +49,14 @@
 /dev/bcm2079x                         u:object_r:nfc_device:s0
 /dev/socket/mpdecision(/.*)?          u:object_r:mpctl_socket:s0
 /data/cam_socket.*                    u:object_r:camera_socket:s0
+/data/cam_socket1		              u:object_r:camera_socket:s0
+/data/cam_socket2		              u:object_r:camera_socket:s0
+
+/sys/devices/virtual/graphics/fb0/msmfb_bl0/brightness    u:object_r:sysfs_brightness:s0
+/sys/devices/f9967000.i2c/i2c-0/0-0038/backlight/lm3630   u:object_r:sysfs_brightness:s0
+/sys/class/leds/blue/brightness              u:object_r:sysfs_brightness:s0
+/sys/class/leds/green/brightness             u:object_r:sysfs_brightness:s0
+/sys/class/leds/red/brightness               u:object_r:sysfs_brightness:s0
+/sys/class/leds/button-backlight1/brightness u:object_r:sysfs_brightness:s0
+/sys/class/leds/button-backlight2/brightness u:object_r:sysfs_brightness:s0
 
