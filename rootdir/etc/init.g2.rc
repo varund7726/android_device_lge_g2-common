@@ -405,11 +405,6 @@ service rmt_storage /system/bin/rmt_storage
     class core
     user root
 
-service run-parts /system/xbin/run-parts
-    class main
-    user root
-    group root system
-
 service bridgemgrd /system/bin/bridgemgrd
     class late_start
     user radio
