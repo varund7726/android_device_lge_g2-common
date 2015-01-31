@@ -2,4 +2,4 @@ allow mediaserver firmware_file:dir search;
 allow mediaserver firmware_file:file r_file_perms;
 
 # 4k2k property
-#allow mediaserver camera_prop:property_service set;
+allow mediaserver camera_prop:property_service set;

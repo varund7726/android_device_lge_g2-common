@@ -271,15 +271,7 @@ on post-fs-data
     # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
     #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
-
-    # Create directory used by sensor subsystem
-    mkdir /persist/sensors 0775 system root
-    write /persist/sensors/sensors_settings 1
-    chmod 0644 /persist/sensors/sensors_settings
-    chown system root /persist/sensors/sensors_settings
-    mkdir /data/misc/sensors 0775 system system
-    restorecon_recursive /data/misc/sensors
-
+    
     # Provide the access to hostapd.conf only to root and group
     chmod 0660 /data/hostapd/hostapd.conf
 
@@ -294,9 +286,6 @@ on post-fs-data
     # communicate with mpdecision and thermald
     mkdir /dev/socket/mpdecision 0770 system system
     chmod 2770 /dev/socket/mpdecision
-
-    # time_daemon storage
-    mkdir /data/time/ 0700 system system
 
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/module/lpm_levels/enable_low_power/l2 4
