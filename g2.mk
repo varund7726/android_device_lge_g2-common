@@ -187,6 +187,7 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+    audiod \
     audio_policy.msm8974 \
     audio.primary.msm8974 \
     audio.a2dp.default \
@@ -195,7 +196,6 @@ PRODUCT_PACKAGES += \
 
 # Audio effects
 PRODUCT_PACKAGES += \
-    libaudio-resampler \
     libqcomvisualizer \
     libqcompostprocbundle \
     libqcomvoiceprocessing \

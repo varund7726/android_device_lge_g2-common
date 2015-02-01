@@ -20,7 +20,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=false
 
-# Offloading
+# Offloading and QCOM audio properites
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.24bit.enable=1
     audio.offload.buffer.size.kb=32 \
@@ -29,8 +29,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.min.duration.secs=30 \
     audio.offload.pcm.16bit.enable=true \
     audio.offload.pcm.24bit.enable=true \
-    av.offload.enable=false \
-    av.streaming.offload.enable=true
+    av.offload.enable=true \
+    av.streaming.offload.enable=true \
+    mm.enable.qcom_parser=3314291
+
+# Enable AAC 5.1 output
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.aac_51_output_enabled=true
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -65,10 +70,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=30
-
-# Enable AAC 5.1 output
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.recordable.rgba8888=1
