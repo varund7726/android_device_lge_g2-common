@@ -37,7 +37,7 @@ TARGET_NO_BOOTLOADER := true
 
 # Kernel information
 BOARD_KERNEL_BASE     := 0x00000000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=g2 user_debug=31 msm_rtb.filter=0x0
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=g2 user_debug=31 msm_rtb.filter=0x0 androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS  := --ramdisk_offset 0x05000000 --tags_offset 0x04800000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -85,7 +85,7 @@ TARGET_USES_QCOM_COMPRESSED_AUDIO := true
 BOARD_HAVE_LOW_LATENCY_AUDIO := true
 
 RECOVERY_FSTAB_VERSION = 2
-TARGET_RECOVERY_FSTAB = device/lge/g2-common/fstab.g2
+TARGET_RECOVERY_FSTAB = device/lge/g2-common/fstab.twrp
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 ENABLE_LOKI_RECOVERY := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
@@ -148,3 +148,19 @@ TARGET_USES_LOGD := false
 TARGET_SPECIFIC_HEADER_PATH := device/lge/g2-common/include
 
 BOARD_USES_LEGACY_MMAP := true
+
+#TWRP config:
+DEVICE_RESOLUTION := 1080x1920
+TW_INCLUDE_DUMLOCK := true
+RECOVERY_SDCARD_ON_DATA := true
+TW_NO_USB_STORAGE := true
+TW_INTERNAL_STORAGE_PATH := "/data/media"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXTERNAL_STORAGE_PATH := "/usb-otg"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "usb-otg"
+TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
+TW_MAX_BRIGHTNESS := 255
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_NO_SCREEN_BLANK := true
+TW_IGNORE_MAJOR_AXIS_0 := true
+#TARGET_RECOVERY_INITRC := device/lge/g2-common/recovery/root/init.recovery.qcom.rc
