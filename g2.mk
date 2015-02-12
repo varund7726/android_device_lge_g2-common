@@ -181,6 +181,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
+# Panel detection script
+PRODUCT_PACKAGES += \
+    panel.sh
+
 # Audio effects
 PRODUCT_PACKAGES += \
         libqcomvisualizer \
