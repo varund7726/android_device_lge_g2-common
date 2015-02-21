@@ -10,3 +10,6 @@ allow sensors device_latency:chr_file rw_file_perms;
 
 # sensors to access wake_lock for power purposes
 allow sensors sysfs_wake_lock:chr_file rw_file_perms;
+
+# allow access to qmuxd (qmux_radio)
+qmux_socket(sensors)
