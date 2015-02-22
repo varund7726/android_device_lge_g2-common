@@ -26,6 +26,7 @@
 #
 
 import init.g2.usb.rc
+import init.g2.sdcard.rc
 
 on early-init
     mkdir /sys 0771 system system

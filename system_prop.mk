@@ -100,8 +100,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.daemon=v \
     debug.qualcomm.sns.libsensor1=v
 
+# MTP and USB-OTG
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
+    persist.sys.usb.config=mtp \
+    persist.sys.isUsbOtgEnabled=true
 
 # Input resampling configuration
 PRODUCT_PROPERTY_OVERRIDES += \
