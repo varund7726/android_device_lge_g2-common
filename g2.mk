@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-# Build full language configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # Call common vendor
 $(call inherit-product-if-exists, vendor/lge/g2-common/g2-common-vendor.mk)
 
@@ -28,13 +25,7 @@ DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 
 # Device uses high-density artwork where available 
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
-PRODUCT_AAPT_PREF_CONFIG := xxhdpi
-
-# Sensors
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf \
-    $(LOCAL_PATH)/configs/sensor_def_common.conf:system/etc/sensor_def_common.conf \
-    $(LOCAL_PATH)/configs/sensor_def_variable.conf:system/etc/sensor_def_variable.conf
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi  
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -98,7 +89,8 @@ PRODUCT_COPY_FILES += \
 # GPS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/flp.conf:system/etc/flp.conf \
-    $(LOCAL_PATH)/configs/izat.conf:system/etc/izat.conf
+    $(LOCAL_PATH)/configs/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
 
 # DxHDCP
 PRODUCT_COPY_FILES += \
