@@ -134,6 +134,15 @@ COMMON_GLOBAL_CFLAGS += \
 # CM Hardware
 BOARD_HARDWARE_CLASS := device/lge/g2-common/cmhw/
 
+# inherit from the proprietary version
+ifneq ($(QCPATH),)
+-include $(QCPATH)/common/msm8974/BoardConfigVendor.mk
+
+ifeq ($(BOARD_USES_QCNE),true)
+TARGET_LDPRELOAD := libNimsWrap.so
+endif
+endif
+
 # SELinux policies
 # QCOM sepolicy
 include device/qcom/sepolicy/sepolicy.mk
