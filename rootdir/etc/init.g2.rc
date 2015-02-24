@@ -339,7 +339,6 @@ on post-fs-data
     # so create them here, just in case.
     mkdir /data/system/sensors
     chmod 665 /data/system/sensors
-    touch /data/system/sensors/settings
     write /data/system/sensors/settings 1
     chmod 0775 /data/system/sensors
     restorecon /data/system/sensors/settings
