@@ -34,13 +34,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.g2.usb.rc:root/init.g2.usb.rc \
     $(LOCAL_PATH)/ueventd.g2.rc:root/ueventd.g2.rc
 
-# F320 requires different versions of these for SD card access
-# so use these only if we're NOT building F320
-ifneq ($(TARGET_DEVICE),f320)
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.g2.rc:root/init.g2.rc \
     $(LOCAL_PATH)/fstab.g2:root/fstab.g2
-endif
+
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
