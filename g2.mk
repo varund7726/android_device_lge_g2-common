@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The Android Open-Source Project
+# Copyright (C) 2013-2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,40 +23,44 @@ DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 # System properties
 -include $(LOCAL_PATH)/system_prop.mk
 
-# This device is xhdpi.  However the platform doesn't
-# currently contain all of the bitmaps at xhdpi density so
-# we do this little trick to fall back to the hdpi version
-# if the xhdpi doesn't exist.
+# Device uses high-density artwork where available 
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
-PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi  
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.g2.usb.rc:root/init.g2.usb.rc \
-    $(LOCAL_PATH)/ueventd.g2.rc:root/ueventd.g2.rc
-
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.g2.rc:root/init.g2.rc \
-    $(LOCAL_PATH)/fstab.g2:root/fstab.g2
-
-
+# Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/configs/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
-    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/configs/mixer_paths.xml:system/etc/mixer_paths.xml
 
+# Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermald.conf:system/etc/thermald.conf \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
+# Thermal
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/touch_dev.idc:system/usr/idc/touch_dev.idc
+    $(LOCAL_PATH)/configs/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
 
-# These are the hardware-specific features
+# Touchscreen
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/touch_dev.idc:system/usr/idc/touch_dev.idc
+
+# Wi-Fi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal \
+    $(LOCAL_PATH)/configs/xtwifi.conf:system/etc/xtwifi.conf
+
+# Prepatch to fix BT/WiFi bus lockups
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/bluetooth/bcm4335_prepatch.hcd:system/vendor/firmware/bcm4335_prepatch.hcd
+
+# Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
@@ -82,6 +86,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
+# GPS
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/configs/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf
+
+# DxHDCP
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/DxHDCP.cfg:system/etc/DxHDCP.cfg
+
+# WPA Supplicant
 PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
@@ -89,6 +104,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Charger
 PRODUCT_PACKAGES += \
     charger_res_images
 
@@ -98,10 +114,21 @@ PRODUCT_PACKAGES += \
     e2fsck \
     setup_fs
 
+# Misc dependency packages
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes \
+    curl \
+    libnl_2 \
+    libbson \
+    libcnefeatureconfig \
+    libxml2
+
 # Live Wallpapers
 PRODUCT_PACKAGES += \
     LiveWallpapers \
     LiveWallpapersPicker \
+    MagicSmokeWallpapers \
     VisualizationWallpapers \
     librs_jni
 
@@ -111,31 +138,22 @@ PRODUCT_PACKAGES += \
     com.android.nfc_extras \
     NfcNci
 
-# NFCEE access control
-ifeq ($(TARGET_BUILD_VARIANT),user)
-    NFCEE_ACCESS_PATH := $(LOCAL_PATH)/nfc/nfcee_access.xml
-else
-    NFCEE_ACCESS_PATH := $(LOCAL_PATH)/nfc/nfcee_access_debug.xml
-endif
-
 # NFC access control + feature files + configuration
 PRODUCT_COPY_FILES += \
-    $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml \
+    $(LOCAL_PATH)/nfc/nfcee_access.xml:system/etc/nfcee_access.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
 
-PRODUCT_TAGS += dalvik.gc.type-precise
-
+# USB
 PRODUCT_PACKAGES += \
-    librs_jni \
     com.android.future.usb.accessory
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     e2fsck
 
+# Display
 PRODUCT_PACKAGES += \
-    libgenlock \
     liboverlay \
     hwcomposer.msm8974 \
     gralloc.msm8974 \
@@ -144,52 +162,84 @@ PRODUCT_PACKAGES += \
 
 # Local wrapper for fixups
 PRODUCT_PACKAGES += \
-    camera.g2
+    camera.msm8974
 
+# Audio
 PRODUCT_PACKAGES += \
-    audio_policy.default \
+    audiod \
+    audio_policy.msm8974 \
     audio.primary.msm8974 \
     audio.a2dp.default \
     audio.usb.default \
-    audio.r_submix.default \
-    libaudio-resampler
+    audio.r_submix.default
 
+# Audio effects
 PRODUCT_PACKAGES += \
-    libmm-omxcore \
+    libqcomvisualizer \
+    libqcompostprocbundle \
+    libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors
+
+# Media
+ PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
     libdivxdrmdecrypt \
+    libdashplayer \
+    libmm-omxcore \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
     libOmxVdec \
+    libOmxVdecHevc \
     libOmxVenc \
     libOmxCore \
     libstagefrighthw \
-    libc2dcolorconvert
+    qcmediaplayer
 
+PRODUCT_BOOT_JARS += qcmediaplayer
+
+# GPS
 PRODUCT_PACKAGES += \
     libloc_adapter \
     libloc_eng \
     libloc_api_v02 \
     libgps.utils \
-    gps.g2
+    gps.msm8974
+
+# Wi-Fi
+PRODUCT_PACKAGES += \
+    libnetcmdiface
 
 PRODUCT_PACKAGES += \
     hwaddrs
 
+# Keystore
+#PRODUCT_PACKAGES += \
+#    keystore.msm8974
+
+# Lights
 PRODUCT_PACKAGES += \
-    lights.g2
+    lights.msm8974
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
-
-# Panel detection script
+# Power
 PRODUCT_PACKAGES += \
-    panel.sh
+    power.msm8974
 
-# Audio effects
+# Ramdisk
 PRODUCT_PACKAGES += \
-        libqcomvisualizer \
-        libqcompostprocbundle
+    fstab.g2 \
+    init.g2.rc \
+    init.g2.usb.rc \
+    ueventd.g2.rc
 
-PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf
+# This hw ships locked, work around it with loki
+PRODUCT_PACKAGES += \
+    loki.sh \
+    panel.sh \
+    loki_tool_static_g2 \
+    recovery-transform.sh
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
