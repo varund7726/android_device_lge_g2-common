@@ -165,10 +165,10 @@ on boot
     chmod 0660 /sys/class/timed_output/vibrator/amp
 
     # led
-    #chown system system /sys/class/leds/red/brightness
-    #chown system system /sys/class/leds/green/brightness
-    #chown system system /sys/class/leds/blue/brightness
-    #chown system system /sys/class/lg_rgb_led/use_patterns/blink_patterns
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/blue/brightness
+    chown system system /sys/class/lg_rgb_led/use_patterns/blink_patterns
     chown system system /sys/class/leds/button-backlight1/brightness
     chown system system /sys/class/leds/button-backlight2/brightness
     chmod 0660 /sys/class/leds/button-backlight1/brightness
