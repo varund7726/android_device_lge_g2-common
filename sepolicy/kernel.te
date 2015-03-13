@@ -1,2 +1,0 @@
-allow kernel touchpanel_sysfs:file relabelto;
-allow kernel time_data_file:file relabelto;
