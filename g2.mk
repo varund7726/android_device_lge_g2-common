@@ -39,7 +39,6 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sensor_def_variable.conf:system/etc/sensor_def_variable.conf \
     $(LOCAL_PATH)/configs/sensor_def_common.conf:system/etc/sensor_def_common.conf
 
 # Touchscreen configuration
