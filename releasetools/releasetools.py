@@ -14,6 +14,10 @@
 # limitations under the License.
 #
 #
+#
+# This leverages the loki_patch utility created by djrbliss
+# See here for more information on loki: https://github.com/djrbliss/loki
+#
 # Detect panel and swap as necessary 
 # lcd_maker_id is determined by get_panel_maker_id on the hardware and is always accurate
 # This searches directly in the boot.img and has no other requirements
@@ -28,7 +32,7 @@ def FullOTA_InstallEnd(info):
   info.script.AppendExtra('package_extract_file("boot.img", "/tmp/boot.img");')
   info.script.Mount("/system")
   info.script.AppendExtra('assert(run_program("/system/bin/panel.sh") == 0);')
+  info.script.AppendExtra('assert(run_program("/system/bin/loki.sh") == 0);')
   info.script.AppendExtra('delete("/system/bin/panel.sh");')
+  info.script.AppendExtra('delete("/system/bin/loki.sh");')
   info.script.Unmount("/system")
-  info.script.AppendExtra('package_extract_file("/tmp/boot.img", "/dev/block/platform/msm_sdcc.1/by-name/boot");')
-
