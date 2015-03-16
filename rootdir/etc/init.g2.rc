@@ -443,7 +443,11 @@ on post-fs-data
 
     # Display Calibration
     chown system system /sys/devices/virtual/graphics/fb0/rgb
-    chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
+    chmod 0664 /sys/devices/virtual/graphics/fb0/rgb
+    chown system system /sys/devices/virtual/graphics/fb0/cabc
+    chmod 0664 /sys/devices/virtual/graphics/fb0/cabc
+    chown system system /sys/devices/virtual/graphics/fb0/sre
+    chmod 0664 /sys/devices/virtual/graphics/fb0/sre
 
 on charger
     trigger charger-fs
