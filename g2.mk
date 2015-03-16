@@ -83,6 +83,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
+# Init
+PRODUCT_PACKAGES += \
+    init.g2.rc \
+    init.g2.usb.rc \
+    ueventd.g2.rc \
+    fstab.g2
+
 PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
