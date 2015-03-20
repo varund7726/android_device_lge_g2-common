@@ -197,8 +197,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     loki.sh \
     loki_tool_static_g2 \
-    recovery-transform.sh \
-    panel.sh
+    recovery-transform.sh
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
