@@ -156,7 +156,7 @@ RROPTI := true
 
 RR_O3 := true
 
-RR_STRICT := false
+RR_STRICT := Strict
 
 RR_GRAPHITE := true
 
