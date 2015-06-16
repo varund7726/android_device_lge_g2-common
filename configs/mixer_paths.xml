@@ -200,11 +200,6 @@
         <ctl name="INTERNAL_FM_RX Audio Mixer MultiMedia1" value="1" />
     </path>
 
-    <path name="deep-buffer-playback bt-sco-and-speaker">
-        <path name="deep-buffer-playback bt-sco" />
-        <path name="deep-buffer-playback" />
-    </path>
-
     <path name="low-latency-playback">
         <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" />
     </path>
@@ -237,11 +232,6 @@
 
     <path name="low-latency-playback transmission-fm">
         <ctl name="INTERNAL_FM_RX Audio Mixer MultiMedia5" value="1" />
-    </path>
-
-    <path name="low-latency-playback bt-sco-and-speaker">
-        <path name="low-latency-playback bt-sco" />
-        <path name="low-latency-playback" />
     </path>
 
     <path name="multi-channel-playback hdmi">
@@ -394,11 +384,6 @@
     </path>
 
     <path name="incall-rec-uplink-and-downlink bt-sco">
-        <ctl name="MultiMedia1 Mixer VOC_REC_UL" value="1" />
-        <ctl name="MultiMedia1 Mixer VOC_REC_DL" value="1" />
-    </path>
-
-    <path name="incall-rec-uplink-and-downlink bt-sco-wb">
         <ctl name="MultiMedia1 Mixer VOC_REC_UL" value="1" />
         <ctl name="MultiMedia1 Mixer VOC_REC_DL" value="1" />
     </path>
