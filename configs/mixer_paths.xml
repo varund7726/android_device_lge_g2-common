@@ -736,7 +736,7 @@
     <path name="bt-sco-mic">
     </path>
 
-    <path name="bt-sco-wb">
+    <path name="usb-headset-mic">
     </path>
 
     <!-- Dual MIC devices -->
