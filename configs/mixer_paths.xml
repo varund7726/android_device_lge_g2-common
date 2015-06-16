@@ -10,6 +10,15 @@
     <ctl name="Voice Rx Gain" id="0" value="0" />
     <ctl name="Voice Rx Gain" id="1" value="-1" />
     <ctl name="Voice Rx Gain" id="2" value="20" />
+    <ctl name="Voip Tx Mute" id="0" value="0" />
+    <ctl name="Voip Tx Mute" id="1" value="500" />
+    <ctl name="Voip Rx Gain" id="0" value="0" />
+    <ctl name="Voip Rx Gain" id="1" value="20" />
+    <ctl name="Voip Mode Config" value="12" />
+    <ctl name="Voip Rate Config" value="0" />
+    <ctl name="Voip Evrc Min Max Rate Config" id="0" value="1" />
+    <ctl name="Voip Evrc Min Max Rate Config" id="1" value="4" />
+    <ctl name="Voip Dtx Mode" value="0" />
     <ctl name="TTY Mode" value="Off" />
     <ctl name="LINEOUT1 Volume" value="12" />
     <ctl name="LINEOUT2 Volume" value="12" />
@@ -56,6 +65,8 @@
     <ctl name="SEC_AUX_PCM_RX_Voice Mixer CSVoice" value="0" />
     <ctl name="Voice_Tx Mixer SLIM_0_TX_Voice" value="0" />
     <ctl name="Voice_Tx Mixer SEC_AUX_PCM_TX_Voice" value="0" />
+    <ctl name="SLIM_0_RX_Voice Mixer Voip" value="0" />
+    <ctl name="Voip_Tx Mixer SLIM_0_TX_Voip" value="0" />
     <ctl name="HDMI_RX_Voice Mixer CSVoice" value="0" />
     <ctl name="SLIM_0_RX_Voice Mixer CSVoice" value="0" />
     <ctl name="SLIMBUS_4_RX Audio Mixer MultiMedia1" value="0" />
@@ -135,7 +146,12 @@
     <ctl name="AUX PCM SampleRate" value="rate_8000" />
     <ctl name="FM Radio" value="OFF" />
     <ctl name="RX7 HPF cut off" value="MIN_3DB_150Hz" />
-
+    <!-- 2013-10-24, jongyeol.yang,  voip loopback -->
+    <ctl name="Voip_Tx Mixer SLIM_0_TX_Voip" value="0" />
+    <ctl name="Voip_Tx Mixer SEC_AUX_PCM_TX_Voip" value="0" />
+    <ctl name="SLIM_0_RX_Voice Mixer Voip" value="0" />
+    <ctl name="SEC_AUX_PCM_RX_Voip Mixer CSVoice" value="0" />
+    <!-- 2013-10-24, jongyeol.yang,  voip loopback -->
     <!-- usb headset -->
     <ctl name="AFE_PCM_RX Audio Mixer MultiMedia1" value="0" />
     <ctl name="MultiMedia1 Mixer AFE_PCM_TX" value="0" />
@@ -262,7 +278,34 @@
         <ctl name="HDMI_RX_Voice Mixer CSVoice" value="1" />
         <ctl name="Voice_Tx Mixer SLIM_0_TX_Voice" value="1" />
     </path>
+<path name="compress-voip-call">
+        <ctl name="SLIM_0_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer SLIM_0_TX_Voip" value="1" />
+    </path>
 
+    <path name="compress-voip-call bt-sco">
+        <ctl name="SEC_AUX_PCM_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer SEC_AUX_PCM_TX_Voip" value="1" />
+    </path>
+
+    <path name="compress-voip-call bt-sco-wb">
+        <ctl name="AUX PCM SampleRate" value="rate_16000" />
+        <path name="compress-voip-call bt-sco" />
+    </path>
+    <path name="voip-loopback bt-sco">
+        <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia1" value="1" />
+        <ctl name="AUX PCM SampleRate" value="rate_8000" />
+        <ctl name="SEC_AUX_PCM_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer SEC_AUX_PCM_TX_Voip" value="1" />
+    </path>
+
+    <path name="voip-loopback bt-sco-wb">
+        <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia1" value="1" />
+        <ctl name="AUX PCM SampleRate" value="rate_16000" />
+        <ctl name="SEC_AUX_PCM_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer SEC_AUX_PCM_TX_Voip" value="1" />
+    </path>
+    <!-- 2013-10-24, jongyeol.yang,  voip loopback -->
     <path name="voice-call bt-sco">
         <ctl name="SEC_AUX_PCM_RX_Voice Mixer CSVoice" value="1" />
         <ctl name="Voice_Tx Mixer SEC_AUX_PCM_TX_Voice" value="1" />
@@ -534,6 +577,158 @@
 
     <path name="voice-tty-vco-handset-mic">
         <path name="adc1" />
+    </path>
+        <!-- 2013-10-24, jongyeol.yang,  voip loopback -->
+    <path name="loopback-earpiece">
+        <path name="handset" />
+        <ctl name="RX1 Digital Volume" value="60" />
+    </path>
+
+    <path name="loopback-speaker">
+        <path name="speaker" />
+        <ctl name="SPK DRV Volume" value="4" />
+        <ctl name="RX7 Digital Volume" value="65" />
+    </path>
+
+    <path name="loopback-headphones">
+        <path name="headphones" />
+        <ctl name="COMP1 Switch" value="0" />
+        <ctl name="HPHL Volume" value="15" />
+        <ctl name="HPHR Volume" value="15" />
+        <ctl name="RX1 Digital Volume" value="67" />
+        <ctl name="RX2 Digital Volume" value="67" />
+    </path>
+
+    <path name="loopback-speaker-mic">
+        <path name="adc5" />
+        <ctl name="ADC5 Volume" value="11" />
+        <ctl name="DEC2 Volume" value="60" />
+    </path>
+
+    <path name="loopback-headset-mic">
+        <path name="headset-mic" />
+        <ctl name="DEC5 Volume" value="60" />
+        <ctl name="ADC2 Volume" value="8" />
+    </path>
+
+    <path name="loopback-handset-mic">
+        <path name="handset-mic" />
+        <ctl name="ADC1 Volume" value="12" />
+        <ctl name="DEC6 Volume" value="66" />
+    </path>
+
+    <path name="loopback-submic1">
+        <path name="adc3" />
+        <ctl name="ADC3 Volume" value="12" />
+        <ctl name="DEC4 Volume" value="60" />
+    </path>
+
+    <path name="loopback-submic2">
+        <path name="adc4" />
+        <ctl name="ADC4 Volume" value="12" />
+        <ctl name="DEC3 Volume" value="60" />
+    </path>
+
+    <path name="loopback-submic3">
+        <path name="adc5" />
+        <ctl name="ADC5 Volume" value="12" />
+        <ctl name="DEC2 Volume" value="60" />
+    </path>
+
+    <path name="mictest-handset-mic">
+        <path name="adc1" />
+        <ctl name="ADC1 Volume" value="19" />
+        <ctl name="DEC6 Volume" value="66" />
+    </path>
+
+    <path name="mictest-submic1">
+        <path name="adc3" />
+        <ctl name="ADC3 Volume" value="19" />
+        <ctl name="DEC4 Volume" value="66" />
+    </path>
+
+    <path name="mictest-submic2">
+        <path name="adc4" />
+        <ctl name="ADC4 Volume" value="19" />
+        <ctl name="DEC3 Volume" value="66" />
+    </path>
+
+    <path name="mictest-submic3">
+        <path name="adc5" />
+        <ctl name="ADC5 Volume" value="19" />
+        <ctl name="DEC2 Volume" value="66" />
+    </path>
+
+    <path name="voice-call-handset-mic">
+        <path name="adc1" />
+        <ctl name="ADC1 Volume" value="12" />
+        <ctl name="DEC6 Volume" value="61" />
+    </path>
+
+    <path name="voice-call-submic1">
+        <path name="adc3" />
+        <ctl name="ADC3 Volume" value="12" />
+        <ctl name="DEC4 Volume" value="61" />
+    </path>
+
+    <path name="voice-call-submic2">
+        <path name="adc4" />
+        <ctl name="ADC4 Volume" value="12" />
+        <ctl name="DEC3 Volume" value="61" />
+    </path>
+
+    <path name="voice-call-submic3">
+        <path name="adc5" />
+        <ctl name="ADC5 Volume" value="12" />
+        <ctl name="DEC2 Volume" value="61" />
+    </path>
+
+    <!-- 2013-10-24, jongyeol.yang,  voip loopback -->
+    <path name="voip-speaker">
+        <path name="speaker" />
+    </path>
+
+    <path name="voip-speaker-mic">
+        <path name="speaker-mic" />
+    </path>
+
+    <path name="voip-speaker-dmic-ef">
+        <path name="speaker-dmic-endfire" />
+    </path>
+
+    <path name="voip-earpiece">
+        <path name="handset" />
+    </path>
+
+    <path name="voip-handset-mic">
+        <path name="handset-mic" />
+        <ctl name="ADC1 Volume" value="12" />
+        <ctl name="DEC6 Volume" value="60" />
+    </path>
+
+    <path name="voip-dmic-ef">
+        <path name="dmic-endfire" />
+        <ctl name="DEC2 MUX" value="ADC5" />
+        <ctl name="ADC1 Volume" value="12" />
+        <ctl name="DEC6 Volume" value="60" />
+        <ctl name="ADC5 Volume" value="12" />
+        <ctl name="DEC2 Volume" value="60" />
+    </path>
+
+    <path name="voip-headset-mic">
+        <path name="headset-mic" />
+        <ctl name="ADC2 Volume" value="12" />
+        <ctl name="DEC5 Volume" value="60" />
+    </path>
+
+    <path name="voip-headphones">
+        <path name="headphones" />
+        <ctl name="COMP1 Switch" value="0" />
+        <ctl name="HPHL Volume" value="18" />
+        <ctl name="HPHR Volume" value="18" />
+        <ctl name="RX1 Digital Volume" value="60" />
+        <ctl name="RX2 Digital Volume" value="60" />
+        
     </path>
 
 </mixer>
