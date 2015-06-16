@@ -745,19 +745,7 @@
         <ctl name="DEC5 Volume" value="68" />
     </path>
 
-    <path name="bt-sco-nrec-16k">
-    </path>
-
-    <path name="bt-sco-nrec">
-    </path>
-
-    <path name="bt-sco-16k">
-    </path>
-
     <path name="bt-sco-headset">
-    </path>
-
-    <path name="bt-sco-headset-wb">
     </path>
 
     <path name="bt-sco-mic">
