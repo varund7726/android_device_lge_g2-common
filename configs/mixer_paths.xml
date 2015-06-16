@@ -182,9 +182,6 @@
         <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia1" value="1" />
     </path>
 
-    <path name="deep-buffer-playback bt-sco-wb">
-        <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia1" value="1" />
-    </path>
 
     <path name="deep-buffer-playback afe-proxy">
         <ctl name="AFE_PCM_RX Audio Mixer MultiMedia1" value="1" />
@@ -215,11 +212,8 @@
     <path name="low-latency-playback hdmi">
         <ctl name="HDMI Mixer MultiMedia5" value="1" />
     </path>
-    <path name="low-latency-playback bt-sco">
-        <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia5" value="1" />
-    </path>
 
-    <path name="low-latency-playback bt-sco-wb">
+    <path name="low-latency-playback bt-sco">
         <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia5" value="1" />
     </path>
 
@@ -266,9 +260,7 @@
         <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia4" value="1" />
     </path>
 
-    <path name="compress-offload-playback bt-sco-wb">
-        <ctl name="SEC_AUX_PCM_RX Audio Mixer MultiMedia4" value="1" />
-    </path>
+
 
     <path name="compress-offload-playback speaker-and-hdmi">
         <path name="compress-offload-playback hdmi" />
@@ -284,10 +276,6 @@
     </path>
 
     <path name="audio-record bt-sco">
-        <ctl name="MultiMedia1 Mixer SEC_AUX_PCM_UL_TX" value="1" />
-    </path>
-
-    <path name="audio-record bt-sco-wb">
         <ctl name="MultiMedia1 Mixer SEC_AUX_PCM_UL_TX" value="1" />
     </path>
 
@@ -314,18 +302,6 @@
         <ctl name="Voice_Tx Mixer SEC_AUX_PCM_TX_Voice" value="1" />
     </path>
 
-    <path name="voice-call bt-sco-wb">
-        <path name="voice-call bt-sco" />
-    </path>
-
-    <path name="bt-sco-samplerate">
-        <ctl name="AUX PCM SampleRate" value="rate_8000" />
-    </path>
-
-    <path name="bt-sco-wb-samplerate">
-        <ctl name="AUX PCM SampleRate" value="rate_16000" />
-    </path>
-
     <path name="voice-call usb-headphones">
         <ctl name="AFE_PCM_RX_Voice Mixer CSVoice" value="1" />
         <ctl name="Voice_Tx Mixer AFE_PCM_TX_Voice" value="1" />
@@ -339,15 +315,6 @@
     <path name="volte-call hdmi">
         <ctl name="HDMI_RX_Voice Mixer VoLTE" value="1" />
         <ctl name="VoLTE_Tx Mixer SLIM_0_TX_VoLTE" value="1" />
-    </path>
-
-    <path name="volte-call bt-sco">
-        <ctl name="SEC_AUX_PCM_RX_Voice Mixer VoLTE" value="1" />
-        <ctl name="VoLTE_Tx Mixer SEC_AUX_PCM_TX_VoLTE" value="1" />
-    </path>
-
-    <path name="volte-call bt-sco-wb">
-        <path name="volte-call bt-sco" />
     </path>
 
     <path name="volte-call usb-headphones">
@@ -365,14 +332,6 @@
         <ctl name="Voice2_Tx Mixer SLIM_0_TX_Voice2" value="1" />
     </path>
 
-    <path name="voice2-call bt-sco">
-        <ctl name="INTERNAL_BT_SCO_RX_Voice Mixer Voice2" value="1" />
-        <ctl name="Voice2_Tx Mixer INTERNAL_BT_SCO_TX_Voice2" value="1" />
-    </path>
-
-    <path name="voice2-call bt-sco-wb">
-        <path name="voice-call bt-sco" />
-    </path>
 
     <path name="voice2-call usb-headphones">
         <ctl name="AFE_PCM_RX_Voice Mixer Voice2" value="1" />
@@ -804,7 +763,7 @@
     <path name="bt-sco-mic">
     </path>
 
-    <path name="bt-sco-mic-wb">
+    <path name="usb-headset-mic">
     </path>
 
     <!-- Dual MIC devices -->
@@ -1148,13 +1107,5 @@
         <ctl name="RX2 Digital Volume" value="60" />
     </path>
 
-    <path name="bt-sco-and-speaker">
-        <ctl name="SLIM_0_RX SampleRate" value="KHZ_8" />
-        <path name="speaker" />
-    </path>
-
-    <path name="bt-sco-wb-and-speaker">
-        <ctl name="SLIM_0_RX SampleRate" value="KHZ_16" />
-        <path name="speaker" />
     </path>
 </mixer>
