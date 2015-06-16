@@ -331,13 +331,13 @@
     </path>
     
     <path name="voice2-call bt-sco">
--        <ctl name="INTERNAL_BT_SCO_RX_Voice Mixer Voice2" value="1" />
--        <ctl name="Voice2_Tx Mixer INTERNAL_BT_SCO_TX_Voice2" value="1" />
--    </path>
--
--    <path name="voice2-call bt-sco-wb">
--        <path name="voice-call bt-sco" />
--    </path>
+        <ctl name="INTERNAL_BT_SCO_RX_Voice Mixer Voice2" value="1" />
+       <ctl name="Voice2_Tx Mixer INTERNAL_BT_SCO_TX_Voice2" value="1" />
+   </path>
+
+    <path name="voice2-call bt-sco-wb">
+        <path name="voice-call bt-sco" />
+    </path>
 
 
     <path name="voice2-call usb-headphones">
