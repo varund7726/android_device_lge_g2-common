@@ -1079,4 +1079,6 @@
         <ctl name="RX1 Digital Volume" value="60" />
         <ctl name="RX2 Digital Volume" value="60" />
     </path>
+
+    </path>
 </mixer>
